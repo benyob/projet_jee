@@ -21,8 +21,10 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditTauxTaxeRetardTrimestrielLabel_dateApplication}" for="dateApplication" />
                         <p:calendar id="dateApplication" pattern="MM/dd/yyyy" value="#{tauxTaxeRetardTrimestrielController.selected.dateApplication}" title="#{bundle.EditTauxTaxeRetardTrimestrielTitle_dateApplication}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTauxTaxeRetardTrimestrielLabel_tauxrRetard}" for="tauxrRetard" />
-                        <p:inputText id="tauxrRetard" value="#{tauxTaxeRetardTrimestrielController.selected.tauxrRetard}" title="#{bundle.EditTauxTaxeRetardTrimestrielTitle_tauxrRetard}" />
+                        <p:outputLabel value="#{bundle.EditTauxTaxeRetardTrimestrielLabel_tauxRetardPremierMois}" for="tauxRetardPremierMois" />
+                        <p:inputText id="tauxRetardPremierMois" value="#{tauxTaxeRetardTrimestrielController.selected.tauxRetardPremierMois}" title="#{bundle.EditTauxTaxeRetardTrimestrielTitle_tauxRetardPremierMois}" />
+                        <p:outputLabel value="#{bundle.EditTauxTaxeRetardTrimestrielLabel_tauxRetardAutresMois}" for="tauxRetardAutresMois" />
+                        <p:inputText id="tauxRetardAutresMois" value="#{tauxTaxeRetardTrimestrielController.selected.tauxRetardAutresMois}" title="#{bundle.EditTauxTaxeRetardTrimestrielTitle_tauxRetardAutresMois}" />
                         <p:outputLabel value="#{bundle.EditTauxTaxeRetardTrimestrielLabel_id}" for="id" />
                         <p:inputText id="id" value="#{tauxTaxeRetardTrimestrielController.selected.id}" title="#{bundle.EditTauxTaxeRetardTrimestrielTitle_id}" />
                     </p:panelGrid>

@@ -14,10 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{tauxTaxeRetardAnnuelController.selected != null}">
                         <h:outputText value="#{bundle.ViewTauxTaxeRetardAnnuelLabel_user}"/>
                         <h:outputText value="#{tauxTaxeRetardAnnuelController.selected.user}" title="#{bundle.ViewTauxTaxeRetardAnnuelTitle_user}"/>
-                        <h:outputText value="#{bundle.ViewTauxTaxeRetardAnnuelLabel_tauxRetardPremierMois}"/>
-                        <h:outputText value="#{tauxTaxeRetardAnnuelController.selected.tauxRetardPremierMois}" title="#{bundle.ViewTauxTaxeRetardAnnuelTitle_tauxRetardPremierMois}"/>
-                        <h:outputText value="#{bundle.ViewTauxTaxeRetardAnnuelLabel_tauxRetardAutresMois}"/>
-                        <h:outputText value="#{tauxTaxeRetardAnnuelController.selected.tauxRetardAutresMois}" title="#{bundle.ViewTauxTaxeRetardAnnuelTitle_tauxRetardAutresMois}"/>
+                        <h:outputText value="#{bundle.ViewTauxTaxeRetardAnnuelLabel_tauxrRetard}"/>
+                        <h:outputText value="#{tauxTaxeRetardAnnuelController.selected.tauxrRetard}" title="#{bundle.ViewTauxTaxeRetardAnnuelTitle_tauxrRetard}"/>
                         <h:outputText value="#{bundle.ViewTauxTaxeRetardAnnuelLabel_dateApplication}"/>
                         <h:outputText value="#{tauxTaxeRetardAnnuelController.selected.dateApplication}" title="#{bundle.ViewTauxTaxeRetardAnnuelTitle_dateApplication}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

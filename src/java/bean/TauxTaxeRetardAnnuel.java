@@ -26,10 +26,8 @@ public class TauxTaxeRetardAnnuel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    
-    private BigDecimal tauxRetardPremierMois;
-    private BigDecimal tauxRetardAutresMois;
+
+    private BigDecimal tauxrRetard;
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateApplication;
@@ -44,23 +42,14 @@ public class TauxTaxeRetardAnnuel implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-public BigDecimal getTauxRetardPremierMois() {
-        return tauxRetardPremierMois;
+
+    public BigDecimal getTauxrRetard() {
+        return tauxrRetard;
     }
 
-    public void setTauxRetardPremierMois(BigDecimal tauxRetardPremierMois) {
-        this.tauxRetardPremierMois = tauxRetardPremierMois;
+    public void setTauxrRetard(BigDecimal tauxrRetard) {
+        this.tauxrRetard = tauxrRetard;
     }
-
-    public BigDecimal getTauxRetardAutresMois() {
-        return tauxRetardAutresMois;
-    }
-
-    public void setTauxRetardAutresMois(BigDecimal tauxRetardAutresMois) {
-        this.tauxRetardAutresMois = tauxRetardAutresMois;
-    }
-
-    
 
     public Date getDateApplication() {
         return dateApplication;

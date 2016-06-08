@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("localController")
 @SessionScoped
 public class LocalController implements Serializable {
 
-
-    @EJB private service.LocalFacade ejbFacade;
+    @EJB
+    private service.LocalFacade ejbFacade;
     private List<Local> items = null;
     private Local selected;
 
@@ -122,7 +121,7 @@ public class LocalController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Local.class)
+    @FacesConverter(forClass = Local.class)
     public static class LocalControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class LocalController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            LocalController controller = (LocalController)facesContext.getApplication().getELResolver().
+            LocalController controller = (LocalController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "localController");
             return controller.getLocal(getKey(value));
         }

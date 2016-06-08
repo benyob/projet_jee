@@ -20,7 +20,7 @@
                             <f:selectItems value="#{localController.itemsAvailableSelectOne}"
                                            var="localItem"
                                            itemValue="#{localItem}"/>
-
+                            
                             <p:ajax listener="#{taxeAnnuelController.getDernierTaxeTrimestriel()}" update="redevable numeroTrimestre annee" />
                         </p:selectOneMenu>
 
@@ -46,7 +46,7 @@
 
 
                         <p:outputLabel value="#{bundle.CreateTaxeAnnuelLabel_datePresentation}" for="datePresentation" />
-                        <p:calendar id="datePresentation" pattern="MM/dd/yyyy" value="#{taxeAnnuelController.taxeTrimestriel.datePresentation}" title="#{bundle.EditTaxeAnnuelTitle_datePresentation}"  showOn="button"/>
+                        <p:calendar id="datePresentation" pattern="yyyy/MM/dd" value="#{taxeAnnuelController.taxeTrimestriel.datePresentation}" title="#{bundle.EditTaxeAnnuelTitle_datePresentation}"  showOn="button"/>
 
 
 

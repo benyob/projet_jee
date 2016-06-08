@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("tauxTaxeRetardTrimestrielController")
 @SessionScoped
 public class TauxTaxeRetardTrimestrielController implements Serializable {
 
-
-    @EJB private service.TauxTaxeRetardTrimestrielFacade ejbFacade;
+    @EJB
+    private service.TauxTaxeRetardTrimestrielFacade ejbFacade;
     private List<TauxTaxeRetardTrimestriel> items = null;
     private TauxTaxeRetardTrimestriel selected;
 
@@ -122,7 +121,7 @@ public class TauxTaxeRetardTrimestrielController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=TauxTaxeRetardTrimestriel.class)
+    @FacesConverter(forClass = TauxTaxeRetardTrimestriel.class)
     public static class TauxTaxeRetardTrimestrielControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class TauxTaxeRetardTrimestrielController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TauxTaxeRetardTrimestrielController controller = (TauxTaxeRetardTrimestrielController)facesContext.getApplication().getELResolver().
+            TauxTaxeRetardTrimestrielController controller = (TauxTaxeRetardTrimestrielController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "tauxTaxeRetardTrimestrielController");
             return controller.getTauxTaxeRetardTrimestriel(getKey(value));
         }

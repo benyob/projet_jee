@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("secteurController")
 @SessionScoped
 public class SecteurController implements Serializable {
 
-
-    @EJB private service.SecteurFacade ejbFacade;
+    @EJB
+    private service.SecteurFacade ejbFacade;
     private List<Secteur> items = null;
     private Secteur selected;
 
@@ -122,7 +121,7 @@ public class SecteurController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Secteur.class)
+    @FacesConverter(forClass = Secteur.class)
     public static class SecteurControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class SecteurController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SecteurController controller = (SecteurController)facesContext.getApplication().getELResolver().
+            SecteurController controller = (SecteurController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "secteurController");
             return controller.getSecteur(getKey(value));
         }

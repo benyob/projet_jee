@@ -15,6 +15,20 @@
 
         <ui:define name="body"> 
             <div class="ui-grid ui-grid-responsive">
+                <br/>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3"  ></div>
+                    
+                    <div class="ui-grid-col-6"  >
+                        <p:panel header="Recherche"  >
+                            mm
+                        </p:panel>
+                    </div>
+                    
+                    <div class="ui-grid-col-3"  ></div>
+
+                </div><br />
+
                 <div class="ui-grid-row">
 
                     <div class="ui-grid-col-6"  >
@@ -25,11 +39,11 @@
                                              paginator="true"
                                              rowKey="#{item.id}"
                                              rows="10"
-                                             
+
                                              rowsPerPageTemplate="10,20,30,40,50"
                                              >
 
-                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowSelect" listener="#{taxeAnnuelController.getTaxeTrimByTaxeAnnuel()}"  update=":TaxeTrimestrielListForm:datalistTaxeTrim createButton viewButton editButton deleteButton"/>
                                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                                     <p:column>
@@ -44,6 +58,9 @@
                                             <h:outputText value="Chiffre affaire Total"/>
                                         </f:facet>
                                         <h:outputText value="#{item.chiffreAffaireTotal}"/>
+                                        <f:facet name="footer">
+                                            Total = #{taxeAnnuelController.getCATotal()}
+                                        </f:facet>
                                     </p:column>
 
                                     <p:column>
@@ -53,13 +70,16 @@
                                         <h:outputText value="#{item.annee}"/>
                                     </p:column>
 
-
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Details"/>
+                                            <h:outputText value="Total Taxes"/>
                                         </f:facet>
-                                        <p:commandLink value="Detail" actionListener="#{taxeAnnuelController.getTaxeTrimByTaxeAnnuel(item)}" update=":TaxeTrimestrielListForm:datalistTaxeTrim"></p:commandLink>>
-                                    </p:column> 
+                                        <h:outputText value="#{item.totalTaxes}"/>
+                                        <f:facet name="footer">
+                                            Total = #{taxeAnnuelController.getTaxesTotal()}
+                                        </f:facet>
+                                    </p:column>
+
 
 
                                     <f:facet name="footer">
@@ -75,14 +95,15 @@
 
                     <div class="ui-grid-col-6" >
 
-                        <h:form id="TaxeTrimestrielListForm">
-                            <p:panel header="Taxes Trimestriels">
+                        <h:form id="TaxeTrimestrielListForm" >
+                            <p:panel header="Taxes Trimestriels" >
                                 <p:dataTable id="datalistTaxeTrim" value="#{taxeAnnuelController.selected.taxeTrimestriels}" var="item"
                                              selectionMode="single" selection="#{taxeAnnuelController.taxeTrimestriel}"
                                              paginator="true"
                                              rowKey="#{item.id}"
                                              rows="10"
                                              rowsPerPageTemplate="10,20,30,40,50"
+                                             rendered="#{taxeAnnuelController.selected != null}"
                                              >
 
 
@@ -104,6 +125,9 @@
                                             <h:outputText value="Total Taxe (Mois de Retard)"/>
                                         </f:facet>
                                         <h:outputText value="#{item.totalTaxe} (#{item.nbrMoisRetard})"/>
+                                        <f:facet name="footer">
+                                            Total = #{taxeAnnuelController.getCATotalTaxeSelected()}
+                                        </f:facet>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
@@ -111,6 +135,7 @@
                                         </f:facet>
                                         <h:outputText value="#{item.numeroTrimestre}"/>
                                     </p:column>
+
                                     <f:facet name="footer">
                                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taxeTrimestrielController.destroy}" update=":growl,datalistTaxeTrim" disabled="#{empty taxeTrimestrielController.selected}"/>
                                     </f:facet>

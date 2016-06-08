@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("redevableController")
 @SessionScoped
 public class RedevableController implements Serializable {
 
-
-    @EJB private service.RedevableFacade ejbFacade;
+    @EJB
+    private service.RedevableFacade ejbFacade;
     private List<Redevable> items = null;
     private Redevable selected;
 
@@ -122,7 +121,7 @@ public class RedevableController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Redevable.class)
+    @FacesConverter(forClass = Redevable.class)
     public static class RedevableControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class RedevableController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            RedevableController controller = (RedevableController)facesContext.getApplication().getELResolver().
+            RedevableController controller = (RedevableController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "redevableController");
             return controller.getRedevable(getKey(value));
         }

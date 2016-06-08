@@ -12,7 +12,6 @@ import service.TaxeAnnuelFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -164,28 +163,56 @@ public class TaxeAnnuelController implements Serializable {
 
     public void appliqueTauxTaxe() {
         TauxTaxeTrimestriel ttt = tauxTaxeTrimestrielFacade.getTauxApplicable(selected.getAnnee(), taxeTrimestriel.getNumeroTrimestre());
+
+        BigDecimal retardPremierMois = new BigDecimal(0);
+        BigDecimal retardAutreMois = new BigDecimal(0);
+        BigDecimal totalRetard = new BigDecimal(0);
+
         if (ttt == null) {
             System.out.println("Taux nuuuuuuuul");
         } else {
             BigDecimal taxe = taxeTrimestriel.getChiffreAffaire().multiply(ttt.getTauxTaxe().divide(new BigDecimal(100)));
-            BigDecimal retard = new BigDecimal(0);
 
             System.out.println("CA : " + taxeTrimestriel.getChiffreAffaire() + " taux : " + ttt.getTauxTaxe() + " = " + taxe);
 
             int nbrMois = getMoisRetard(taxeTrimestriel.getNumeroTrimestre(), selected.getAnnee(), taxeTrimestriel.getDatePresentation(), 1);
-            System.out.println("RETARD **********" + nbrMois);
+            System.out.println("nombre de mois de RETARD **********" + nbrMois);
 
             if (nbrMois > 0) {
-                BigDecimal tauxRetard = getTauxRetard();
+                TauxTaxeRetardTrimestriel tauxRetard = getTauxRetard();
+
+                int nbrMoisRetardAutreMois = 0;
+
                 if (tauxRetard != null) {
+                    System.out.println("taux retard app 1mois : " + tauxRetard.getTauxRetardPremierMois());
+
                     System.out.println("TAUX RETARD APPLIQUE //////***** " + tauxRetard);
 
-                    retard = taxe.multiply(tauxRetard.divide(new BigDecimal(100)).multiply(new BigDecimal(nbrMois)));
+                    retardPremierMois = taxe.multiply(tauxRetard.getTauxRetardPremierMois().divide(new BigDecimal(100)));
+
+                    System.out.println("retard premier mois " + retardPremierMois);
+
+                    int nbrMoisTemp = nbrMois;
+
+                    nbrMoisRetardAutreMois = nbrMoisTemp--;
+
+                    if (nbrMoisRetardAutreMois > 0) {
+                        retardAutreMois = taxe.multiply(tauxRetard.getTauxRetardAutresMois().divide(new BigDecimal(100))).multiply(new BigDecimal(nbrMoisRetardAutreMois));
+
+                    } else {
+                        nbrMoisRetardAutreMois = 0;
+                    }
+
                 }
             } else {
                 nbrMois = 0;
             }
-            BigDecimal totalTaxe = taxe.add(retard);
+            System.out.println("NOMBRE DE MOIS AVANT AFFECTATION : " + nbrMois);
+            BigDecimal totalTaxe = taxe.add(retardPremierMois);
+            totalTaxe = totalTaxe.add(retardAutreMois);
+
+            totalRetard = totalRetard.add(retardPremierMois);
+            totalRetard = totalRetard.add(retardAutreMois);
 
             selected.setChiffreAffaireTotal(selected.getChiffreAffaireTotal().add(taxeTrimestriel.getChiffreAffaire()));
             selected.setTotalTaxes(selected.getTotalTaxes().add(totalTaxe));
@@ -193,7 +220,7 @@ public class TaxeAnnuelController implements Serializable {
             taxeTrimestriel.setNbrMoisRetard(nbrMois);
 
             taxeTrimestriel.setTaxe(taxe);
-            taxeTrimestriel.setRetard(retard);
+            taxeTrimestriel.setRetard(totalRetard);
             taxeTrimestriel.setTotalTaxe(totalTaxe);
 
             //annuel CA total ete total taxe
@@ -206,7 +233,38 @@ public class TaxeAnnuelController implements Serializable {
         }
     }
 
-    public BigDecimal getTauxRetard() {
+    public BigDecimal getCATotal() {
+        BigDecimal ca = new BigDecimal(0);
+
+        for (TaxeAnnuel annuel : items) {
+            ca = ca.add(annuel.getChiffreAffaireTotal());
+        }
+        return ca;
+    }
+
+    public BigDecimal getTaxesTotal() {
+        BigDecimal ca = new BigDecimal(0);
+
+        for (TaxeAnnuel annuel : items) {
+            if (annuel.getTotalTaxes() != null) {
+                ca = ca.add(annuel.getTotalTaxes());
+            }
+        }
+        return ca;
+    }
+
+    public BigDecimal getCATotalTaxeSelected() {
+        BigDecimal ca = new BigDecimal(0);
+
+        for (TaxeTrimestriel trimestriel : getSelected().getTaxeTrimestriels()) {
+            if (trimestriel.getTotalTaxe() != null) {
+                ca = ca.add(trimestriel.getTotalTaxe());
+            }
+        }
+        return ca;
+    }
+
+    public TauxTaxeRetardTrimestriel getTauxRetard() {
         TauxTaxeRetardTrimestriel ttrt = tauxTaxeRetardTrimestrielFacade.getTauxRetardApplicable(selected.getAnnee(), taxeTrimestriel.getNumeroTrimestre());
 
         if (ttrt == null) {
@@ -214,7 +272,7 @@ public class TaxeAnnuelController implements Serializable {
         } else {
             //System.out.println("Ha RETARD Applique " + ttrt.getTauxRetardPremierMois());
         }
-        return ttrt.getTauxrRetard();
+        return ttrt;
     }
 
     public void getTauxApplicable() {
@@ -236,9 +294,9 @@ public class TaxeAnnuelController implements Serializable {
         return selected;
     }
 
-    public void getTaxeTrimByTaxeAnnuel(TaxeAnnuel annuel) {
+    public void getTaxeTrimByTaxeAnnuel() {
         System.out.println("mmmmmm");
-        getSelected().setTaxeTrimestriels(taxeTrimestrielFacade.getTaxeTrimByTaxeAnnuel(annuel));
+        getSelected().setTaxeTrimestriels(taxeTrimestrielFacade.getTaxeTrimByTaxeAnnuel(selected));
 
     }
 
@@ -439,6 +497,10 @@ public class TaxeAnnuelController implements Serializable {
 
     public int getMoisRetard(int numeroTrimestre, int anne, Date datePresentation, int nbrmoisignorer) {
 
+        java.sql.Date dd = new java.sql.Date(datePresentation.getTime());
+
+        System.out.println("------> date presentation : " + dd);
+
         int moisRetard = 0;
         Date myDate = getMyDate(numeroTrimestre, anne);
 
@@ -451,6 +513,17 @@ public class TaxeAnnuelController implements Serializable {
         int presentationMonth = presentation.get(Calendar.MONTH);
         int trimestreYear = trimestriel.get(Calendar.YEAR);
         int trimestreMonth = trimestriel.get(Calendar.MONTH);
+        
+        System.out.println("--------------");
+        
+        System.out.println("presentationYear : "+presantationYear);
+        System.out.println("presentationMonth : "+presentationMonth);
+        
+        System.out.println("trim year : "+trimestreYear);
+        System.out.println("trim Month : "+trimestreMonth);
+        
+        System.out.println("--------------");
+        
         if (presantationYear - trimestreYear == 0) {
 
             moisRetard = presentationMonth - trimestreMonth;

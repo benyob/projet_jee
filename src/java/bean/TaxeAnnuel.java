@@ -7,6 +7,7 @@ package bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -95,6 +96,9 @@ public class TaxeAnnuel implements Serializable {
     }
 
     public List<TaxeTrimestriel> getTaxeTrimestriels() {
+        if (taxeTrimestriels == null) {
+            taxeTrimestriels = new ArrayList();
+        }
         return taxeTrimestriels;
     }
 

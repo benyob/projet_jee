@@ -27,7 +27,8 @@ public class TauxTaxeRetardTrimestriel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal tauxrRetard;
+    private BigDecimal tauxRetardPremierMois;
+    private BigDecimal tauxRetardAutresMois;
 
     @OneToOne
     private User user;
@@ -47,12 +48,20 @@ public class TauxTaxeRetardTrimestriel implements Serializable {
         return dateApplication;
     }
 
-    public BigDecimal getTauxrRetard() {
-        return tauxrRetard;
+    public BigDecimal getTauxRetardPremierMois() {
+        return tauxRetardPremierMois;
     }
 
-    public void setTauxrRetard(BigDecimal tauxrRetard) {
-        this.tauxrRetard = tauxrRetard;
+    public void setTauxRetardPremierMois(BigDecimal tauxRetardPremierMois) {
+        this.tauxRetardPremierMois = tauxRetardPremierMois;
+    }
+
+    public BigDecimal getTauxRetardAutresMois() {
+        return tauxRetardAutresMois;
+    }
+
+    public void setTauxRetardAutresMois(BigDecimal tauxRetardAutresMois) {
+        this.tauxRetardAutresMois = tauxRetardAutresMois;
     }
 
     public void setDateApplication(Date dateApplication) {

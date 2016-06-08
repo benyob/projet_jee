@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("rueController")
 @SessionScoped
 public class RueController implements Serializable {
 
-
-    @EJB private service.RueFacade ejbFacade;
+    @EJB
+    private service.RueFacade ejbFacade;
     private List<Rue> items = null;
     private Rue selected;
 
@@ -122,7 +121,7 @@ public class RueController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Rue.class)
+    @FacesConverter(forClass = Rue.class)
     public static class RueControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class RueController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            RueController controller = (RueController)facesContext.getApplication().getELResolver().
+            RueController controller = (RueController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "rueController");
             return controller.getRue(getKey(value));
         }
