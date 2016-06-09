@@ -6,13 +6,11 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,9 +18,6 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Rue implements Serializable {
-
-    @OneToMany(mappedBy = "rue")
-    private List<Local> locals;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,14 +30,6 @@ public class Rue implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public List<Local> getLocals() {
-        return locals;
-    }
-
-    public void setLocals(List<Local> locals) {
-        this.locals = locals;
     }
 
     public Quartier getQuartier() {
@@ -87,7 +74,7 @@ public class Rue implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Rue[ id=" + id + " ]";
+        return nom;
     }
 
 }

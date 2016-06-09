@@ -12,14 +12,14 @@
             <h:form id="LocalCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLocalLabel_idDernierTaxeTrimestrielPaye}" for="idDernierTaxeTrimestrielPaye" />
-                        <p:inputText id="idDernierTaxeTrimestrielPaye" value="#{localController.selected.idDernierTaxeTrimestrielPaye}" title="#{bundle.CreateLocalTitle_idDernierTaxeTrimestrielPaye}" />
                         <p:outputLabel value="#{bundle.CreateLocalLabel_rue}" for="rue" />
                         <p:selectOneMenu id="rue" value="#{localController.selected.rue}" >
                             <f:selectItems value="#{rueController.itemsAvailableSelectOne}"
                                            var="rueItem"
                                            itemValue="#{rueItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{localController.selected.adresse}" title="#{bundle.CreateLocalTitle_adresse}" />
                         <p:outputLabel value="#{bundle.CreateLocalLabel_redevable}" for="redevable" />
                         <p:selectOneMenu id="redevable" value="#{localController.selected.redevable}" >
                             <f:selectItems value="#{redevableController.itemsAvailableSelectOne}"

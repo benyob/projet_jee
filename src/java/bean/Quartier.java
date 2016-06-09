@@ -80,7 +80,7 @@ public class Quartier implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Quartier[ id=" + id + " ]";
+        return nom;
     }
 
 }

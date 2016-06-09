@@ -28,14 +28,9 @@ public class Secteur implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-
-    public List<Quartier> getQuartiers() {
-        return quartiers;
-    }
-
-    public void setQuartiers(List<Quartier> quartiers) {
-        this.quartiers = quartiers;
-    }
+    
+    
+    
 
     public Long getId() {
         return id;
@@ -75,7 +70,7 @@ public class Secteur implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Secteur[ id=" + id + " ]";
+        return nom;
     }
 
 }

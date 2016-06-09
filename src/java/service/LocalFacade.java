@@ -6,15 +6,13 @@
 package service;
 
 import bean.Local;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author MarouaneKH
+ * @author Ayoub
  */
 @Stateless
 public class LocalFacade extends AbstractFacade<Local> {
@@ -30,7 +28,5 @@ public class LocalFacade extends AbstractFacade<Local> {
     public LocalFacade() {
         super(Local.class);
     }
-
-   
-
+    
 }

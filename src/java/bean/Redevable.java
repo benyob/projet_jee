@@ -5,13 +5,12 @@
  */
 package bean;
 
+import controler.LocalController;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,12 +19,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Redevable implements Serializable {
 
-    @OneToMany(mappedBy = "redevable")
-    private List<TaxeTrimestriel> taxeTrimestriels;
-
-    @OneToMany(mappedBy = "redevable")
-    private List<TaxeAnnuel> taxeAnnuels;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,29 +26,18 @@ public class Redevable implements Serializable {
 
     private String tel;
     private String email;
+    private String fax;
     private String adresse;
     private String nom;
     private String prenom;
     private String cin;
     private String rc;
+    private String RaisonSociale;
     private Boolean personnePhysique;
+    
 
-    public List<TaxeTrimestriel> getTaxeTrimestriels() {
-        return taxeTrimestriels;
-    }
-
-    public void setTaxeTrimestriels(List<TaxeTrimestriel> taxeTrimestriels) {
-        this.taxeTrimestriels = taxeTrimestriels;
-    }
-
-    public List<TaxeAnnuel> getTaxeAnnuels() {
-        return taxeAnnuels;
-    }
-
-    public void setTaxeAnnuels(List<TaxeAnnuel> taxeAnnuels) {
-        this.taxeAnnuels = taxeAnnuels;
-    }
-
+    
+    
     public String getTel() {
         return tel;
     }
@@ -64,6 +46,24 @@ public class Redevable implements Serializable {
         this.tel = tel;
     }
 
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getRaisonSociale() {
+        return RaisonSociale;
+    }
+
+    public void setRaisonSociale(String RaisonSociale) {
+        this.RaisonSociale = RaisonSociale;
+    }
+
+     
+    
     public String getEmail() {
         return email;
     }
@@ -150,7 +150,7 @@ public class Redevable implements Serializable {
 
     @Override
     public String toString() {
-        return nom + " " + prenom;
+        return prenom + " " + nom;
     }
 
 }

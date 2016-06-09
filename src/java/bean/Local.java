@@ -28,7 +28,8 @@ public class Local implements Serializable {
     private String patente;
     private String fax;
     private String tel;
-    private int idDernierTaxeTrimestrielPaye;// -1 : si ila n'as jamais paye, sinon id de taxe dernier Trimestre paye
+    private String adresse;
+    private int idDernierTaxeTrimestrielPaye;// -1 : si il n'as jamais paye, sinon id de taxe dernier Trimestre paye
 
     @ManyToOne
     Rue rue;
@@ -88,6 +89,15 @@ public class Local implements Serializable {
         this.fax = fax;
     }
 
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    
     public String getTel() {
         return tel;
     }

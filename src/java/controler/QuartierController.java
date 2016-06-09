@@ -1,11 +1,14 @@
 package controler;
 
 import bean.Quartier;
+import bean.Rue;
+import bean.Secteur;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import service.QuartierFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,20 +21,69 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.RueFacade;
 
 @Named("quartierController")
 @SessionScoped
 public class QuartierController implements Serializable {
 
     @EJB
-    private service.QuartierFacade ejbFacade;
+    private QuartierFacade quartierFacade;
+    @EJB
+    private RueFacade rueFacade;
+    
+    
     private List<Quartier> items = null;
     private Quartier selected;
+    List<Quartier> quartiers = new ArrayList<>();
+    List<Rue> rues = new ArrayList<>();
+    private Quartier quartierVide = null;
+
+    public Quartier getQuartierVide() {
+        return quartierVide;
+    }
+
+    public void setQuartierVide(Quartier quartierVide) {
+        this.quartierVide = quartierVide;
+    }
+
+    
+    
+    public List<Rue> getRues() {
+        //if(rues == null) setRues(rueFacade.findAll());
+        return rues;
+    }
+
+    public void setRues(List<Rue> rues) {
+        this.rues = rues;
+    }
 
     public QuartierController() {
     }
 
+    public List<Rue> getRueByQuartier(Quartier selected) {
+        setRues(rueFacade.getRueByQuartier(selected));
+        return rues;
+
+    }
+
+    public  List<Rue>  viderListeRue(){
+        setRues(rueFacade.viderListe());
+        return rues;
+    }
+
+    public List<Quartier> getQuartiers() {
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
+    }
+
     public Quartier getSelected() {
+        if (selected == null) {
+            selected = new Quartier();
+        }
         return selected;
     }
 
@@ -46,7 +98,7 @@ public class QuartierController implements Serializable {
     }
 
     private QuartierFacade getFacade() {
-        return ejbFacade;
+        return quartierFacade;
     }
 
     public Quartier prepareCreate() {

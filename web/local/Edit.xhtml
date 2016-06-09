@@ -12,8 +12,6 @@
             <h:form id="LocalEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditLocalLabel_idDernierTaxeTrimestrielPaye}" for="idDernierTaxeTrimestrielPaye" />
-                        <p:inputText id="idDernierTaxeTrimestrielPaye" value="#{localController.selected.idDernierTaxeTrimestrielPaye}" title="#{bundle.EditLocalTitle_idDernierTaxeTrimestrielPaye}" />
                         <p:outputLabel value="#{bundle.EditLocalLabel_rue}" for="rue" />
                         <p:selectOneMenu id="rue" value="#{localController.selected.rue}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -21,6 +19,8 @@
                                            var="rueItem"
                                            itemValue="#{rueItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLocalLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{localController.selected.adresse}" title="#{bundle.EditLocalTitle_adresse}" />
                         <p:outputLabel value="#{bundle.EditLocalLabel_redevable}" for="redevable" />
                         <p:selectOneMenu id="redevable" value="#{localController.selected.redevable}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

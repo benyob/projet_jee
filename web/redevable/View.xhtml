@@ -14,6 +14,10 @@
                     <p:panelGrid columns="2" rendered="#{redevableController.selected != null}">
                         <h:outputText value="#{bundle.ViewRedevableLabel_tel}"/>
                         <h:outputText value="#{redevableController.selected.tel}" title="#{bundle.ViewRedevableTitle_tel}"/>
+                        <h:outputText value="Fax"/>
+                        <h:outputText value="#{redevableController.selected.fax}" title="Fax"/>
+                        <h:outputText value="Raison sociale"/>
+                        <h:outputText value="#{redevableController.selected.raisonSociale}" title="Raison sociale"/>
                         <h:outputText value="#{bundle.ViewRedevableLabel_email}"/>
                         <h:outputText value="#{redevableController.selected.email}" title="#{bundle.ViewRedevableTitle_email}"/>
                         <h:outputText value="#{bundle.ViewRedevableLabel_adresse}"/>

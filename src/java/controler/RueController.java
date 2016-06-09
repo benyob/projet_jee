@@ -1,5 +1,6 @@
 package controler;
 
+import bean.Quartier;
 import bean.Rue;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -24,14 +25,30 @@ import javax.faces.convert.FacesConverter;
 public class RueController implements Serializable {
 
     @EJB
-    private service.RueFacade ejbFacade;
+    private RueFacade rueFacade;
     private List<Rue> items = null;
     private Rue selected;
+    private  Rue rueVide = null;
 
-    public RueController() {
+    public Rue getRueVide() {
+        return rueVide;
     }
 
+    public void setRueVide(Rue rueVide) {
+        this.rueVide = rueVide;
+    }
+
+    
+    
+    public RueController() {
+    }
+    
+ 
+
     public Rue getSelected() {
+        if (selected == null) {
+            selected = new Rue();
+        }
         return selected;
     }
 
@@ -46,7 +63,7 @@ public class RueController implements Serializable {
     }
 
     private RueFacade getFacade() {
-        return ejbFacade;
+        return rueFacade;
     }
 
     public Rue prepareCreate() {
