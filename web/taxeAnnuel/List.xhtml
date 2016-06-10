@@ -19,9 +19,42 @@
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3"  ></div>
                     
-                    <div class="ui-grid-col-6"  >
+                    <div class="ui-grid-col-11"  >
                         <p:panel header="Recherche"  >
-                            mm
+                           
+                           
+                            <h:form>
+                          
+                            <p:panelGrid columns="11">
+                        
+                                <p:outputLabel value="Secteur" for="secteur" />
+                                <p:inputText id="secteur" value="#{taxeAnnuelController.secteur}" title="Secteur" />
+                                
+                                <p:outputLabel value="Quartier" for="quartier" />
+                                <p:inputText id="quartier" value="#{taxeAnnuelController.quartier}" title="Quartier" />
+                                
+                                
+                                <p:outputLabel value="Rue" for="rue" />
+                                <p:inputText id="rue" value="#{taxeAnnuelController.rue}" title="Rue" />
+                                
+                                <p:outputLabel value="AnneMin" for="anneMin" />
+                                <p:inputText id="anneMin" value="#{taxeAnnuelController.anneMin}" title="AnneMin" />
+                                
+                                <p:outputLabel value="AnneMax" for="anneMax" />
+                                <p:inputText id="anneMax" value="#{taxeAnnuelController.anneMax}" title="AnneMax" />
+                                
+                                <p:commandButton actionListener="#{taxeAnnuelController.searchTaxAnnuels()}"
+                                                 update=":TaxeAnnuelListForm:datalist" 
+                                                 value="ok"/>
+                               
+                            </p:panelGrid>
+                        </h:form>
+                             
+                           
+                            
+                            
+                            
+                            
                         </p:panel>
                     </div>
                     

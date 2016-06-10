@@ -44,6 +44,12 @@ public class TaxeAnnuelController implements Serializable {
     private List<TaxeAnnuel> items = null;
     private TaxeAnnuel selected;
 
+    private String secteur;
+    private String quartier;
+    private String rue;
+    private Integer anneMin;
+    private Integer anneMax;
+
     @EJB
     private service.TaxeTrimestrielFacade taxeTrimestrielFacade;
     @EJB
@@ -59,6 +65,54 @@ public class TaxeAnnuelController implements Serializable {
 
     private boolean dejaPaye;
 
+    
+    public void searchTaxAnnuels() {
+        items = ejbFacade.searchTaxeAnnuel(secteur, quartier, rue, anneMin, anneMax);
+
+    }
+    
+    public String getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(String secteur) {
+        this.secteur = secteur;
+    }
+
+    public String getQuartier() {
+        return quartier;
+    }
+
+    public void setQuartier(String quartier) {
+        this.quartier = quartier;
+    }
+
+    public String getRue() {
+        return rue;
+    }
+
+    public void setRue(String rue) {
+        this.rue = rue;
+    }
+
+    public Integer getAnneMin() {
+        return anneMin;
+    }
+
+    public void setAnneMin(Integer anneMin) {
+        this.anneMin = anneMin;
+    }
+
+    public Integer getAnneMax() {
+        return anneMax;
+    }
+
+    public void setAnneMax(Integer anneMax) {
+        this.anneMax = anneMax;
+    }
+
+    
+    
     public TauxTaxeRetardTrimestrielFacade getTauxTaxeRetardTrimestrielFacade() {
         return tauxTaxeRetardTrimestrielFacade;
     }
@@ -513,17 +567,17 @@ public class TaxeAnnuelController implements Serializable {
         int presentationMonth = presentation.get(Calendar.MONTH);
         int trimestreYear = trimestriel.get(Calendar.YEAR);
         int trimestreMonth = trimestriel.get(Calendar.MONTH);
-        
+
         System.out.println("--------------");
-        
-        System.out.println("presentationYear : "+presantationYear);
-        System.out.println("presentationMonth : "+presentationMonth);
-        
-        System.out.println("trim year : "+trimestreYear);
-        System.out.println("trim Month : "+trimestreMonth);
-        
+
+        System.out.println("presentationYear : " + presantationYear);
+        System.out.println("presentationMonth : " + presentationMonth);
+
+        System.out.println("trim year : " + trimestreYear);
+        System.out.println("trim Month : " + trimestreMonth);
+
         System.out.println("--------------");
-        
+
         if (presantationYear - trimestreYear == 0) {
 
             moisRetard = presentationMonth - trimestreMonth;
