@@ -6,8 +6,11 @@ import bean.TauxTaxeRetardTrimestriel;
 import bean.TauxTaxeTrimestriel;
 import bean.TaxeAnnuel;
 import bean.TaxeTrimestriel;
+import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
+import java.io.IOException;
 import service.TaxeAnnuelFacade;
 
 import java.io.Serializable;
@@ -65,12 +68,11 @@ public class TaxeAnnuelController implements Serializable {
 
     private boolean dejaPaye;
 
-    
     public void searchTaxAnnuels() {
         items = ejbFacade.searchTaxeAnnuel(secteur, quartier, rue, anneMin, anneMax);
 
     }
-    
+
     public String getSecteur() {
         return secteur;
     }
@@ -111,8 +113,6 @@ public class TaxeAnnuelController implements Serializable {
         this.anneMax = anneMax;
     }
 
-    
-    
     public TauxTaxeRetardTrimestrielFacade getTauxTaxeRetardTrimestrielFacade() {
         return tauxTaxeRetardTrimestrielFacade;
     }

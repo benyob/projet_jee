@@ -21,8 +21,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long login;
+    private String login;
 
     private String password;
     private String nom;
@@ -70,11 +69,11 @@ public class User implements Serializable {
         this.tel = tel;
     }
 
-    public Long getLogin() {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(Long login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 

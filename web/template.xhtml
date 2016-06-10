@@ -18,8 +18,17 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                <h:form>
+                    <p:panel style="text-align: right">
+                        <h:outputText value="#{userController.getConnectedUser().nom} | "/>
+
+                        <p:commandLink value="se deconnecter" class = "fa-sign-out" action="#{userController.deconnexion()}"/>
+                    </p:panel>
+                </h:form>
+
                 <h:form id="menuForm">
                     <p:menubar>
+
                         <p:menuitem  value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Local" outcome="/local/List.xhtml" />
