@@ -5,14 +5,17 @@
  */
 package service;
 
+import bean.Quartier;
 import bean.Rue;
+import bean.Secteur;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author MarouaneKH
+ * @author Ayoub
  */
 @Stateless
 public class RueFacade extends AbstractFacade<Rue> {
@@ -28,5 +31,33 @@ public class RueFacade extends AbstractFacade<Rue> {
     public RueFacade() {
         super(Rue.class);
     }
+
     
+    /**
+     * Retourner la liste des rues qui appartiennent à un quartier donné
+     * @param selected
+     * @return 
+     */
+    public List<Rue> getRueByQuartier(Quartier selected) {
+        String requete = "SELECT r FROM Rue r";
+        if (selected != null) {
+            requete = requete + " WHERE r.quartier.id = " + selected.getId();
+        }else{
+            requete = requete + " WHERE r.quartier.id = -1" ;
+        }
+        System.out.println(requete);
+        System.out.println(em.createQuery(requete).getResultList().toString());
+        return em.createQuery(requete).getResultList();
+    }
+
+    /**
+     * vider la liste des rues aprés le changement du secteur
+     * @return 
+     */
+    public List<Rue> viderListe() {
+        String requete = "SELECT r FROM Rue r where r.id = -1";
+        System.out.println(requete);    
+        System.out.println(em.createQuery(requete).getResultList().toString());
+        return em.createQuery(requete).getResultList();
+    }
 }

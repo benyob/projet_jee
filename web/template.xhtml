@@ -43,6 +43,19 @@
                             <p:menuitem value="TaxeTrimestriel" outcome="/taxeTrimestriel/List.xhtml" />
                             <p:menuitem value="User" outcome="/user/List.xhtml" />
                         </p:submenu>
+                        
+                        
+                           <p:submenu label="#{bundle.localeRedevable}">
+                           
+                            <p:submenu label="#{bundle.createRecherche}">
+                            <p:menuitem value="Créer" outcome="/redevable/Create.xhtml" />          
+                            <p:menuitem value="Rechercher" outcome="/redevable/List.xhtml" />
+                            
+                            
+                            
+                            </p:submenu>
+                            
+                        </p:submenu>
                     </p:menubar>
                 </h:form>
 

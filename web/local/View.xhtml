@@ -12,18 +12,18 @@
             <h:form id="LocalViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLocalLabel_idDernierTaxeTrimestrielPaye}"/>
-                        <h:outputText value="#{localController.selected.idDernierTaxeTrimestrielPaye}" title="#{bundle.ViewLocalTitle_idDernierTaxeTrimestrielPaye}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_rue}"/>
                         <h:outputText value="#{localController.selected.rue}" title="#{bundle.ViewLocalTitle_rue}"/>
+                        <h:outputText value="#{bundle.ViewLocalLabel_adresse}"/>
+                        <h:outputText value="#{localController.selected.adresse}" title="#{bundle.ViewLocalTitle_adresse}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_redevable}"/>
                         <h:outputText value="#{localController.selected.redevable}" title="#{bundle.ViewLocalTitle_redevable}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_id}"/>
                         <h:outputText value="#{localController.selected.id}" title="#{bundle.ViewLocalTitle_id}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_patente}"/>
                         <h:outputText value="#{localController.selected.patente}" title="#{bundle.ViewLocalTitle_patente}"/>
-                        <h:outputText value="#{bundle.ViewLocalLabel_fax}"/>
-                        <h:outputText value="#{localController.selected.fax}" title="#{bundle.ViewLocalTitle_fax}"/>
+                        <h:outputText value="Fax"/>
+                        <h:outputText value="#{localController.selected.fax}" title="Fax"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_tel}"/>
                         <h:outputText value="#{localController.selected.tel}" title="#{bundle.ViewLocalTitle_tel}"/>
                     </p:panelGrid>

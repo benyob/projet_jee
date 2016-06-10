@@ -6,36 +6,131 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
 
-        <p:dialog id="RedevableCreateDlg" widgetVar="RedevableCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRedevableTitle}">
-            <h:form id="RedevableCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{redevableController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_tel}" for="tel" />
-                        <p:inputText id="tel" value="#{redevableController.selected.tel}" title="#{bundle.CreateRedevableTitle_tel}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{redevableController.selected.email}" title="#{bundle.CreateRedevableTitle_email}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_adresse}" for="adresse" />
-                        <p:inputText id="adresse" value="#{redevableController.selected.adresse}" title="#{bundle.CreateRedevableTitle_adresse}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{redevableController.selected.nom}" title="#{bundle.CreateRedevableTitle_nom}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_prenom}" for="prenom" />
-                        <p:inputText id="prenom" value="#{redevableController.selected.prenom}" title="#{bundle.CreateRedevableTitle_prenom}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_cin}" for="cin" />
-                        <p:inputText id="cin" value="#{redevableController.selected.cin}" title="#{bundle.CreateRedevableTitle_cin}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_rc}" for="rc" />
-                        <p:inputText id="rc" value="#{redevableController.selected.rc}" title="#{bundle.CreateRedevableTitle_rc}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_personnePhysique}" for="personnePhysique" />
-                        <p:selectBooleanCheckbox id="personnePhysique" value="#{redevableController.selected.personnePhysique}" />
-                        <p:outputLabel value="#{bundle.CreateRedevableLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{redevableController.selected.id}" title="#{bundle.CreateRedevableTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{redevableController.create}" value="#{bundle.Save}" update="display,:RedevableListForm:datalist,:growl" oncomplete="handleSubmit(args,'RedevableCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RedevableCreateDialog.hide()"/>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
 
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListRedevableTitle}"></h:outputText>
+        </ui:define>
+
+
+        <ui:define name="body">
+            <div id="div1" style="display: inline-block">
+                <h2 style="position: relative; left: 50px; top: 10px">Parametre locale</h2>
+                <h:form id="RedevableCreateForm" > 
+                    
+                    
+                 
+
+                    <div id="block2" style="position: relative; left: 100px; top: 10px">
+                        <h:panelGroup id="display" style="display: inline-block">
+                            <p:panelGrid columns="2" rendered="#{localController.selected != null}">
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_secteur}"/>
+
+
+                                <p:selectOneMenu id="secteur" value="#{secteurController.selectone}" >
+                                    <f:selectItem id="secteur1" value="#{secteurController.secteurVide}" itemLabel="----SELECT----" ></f:selectItem>
+
+                                    <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"
+                                                   var="secteurItem"
+                                                   itemValue="#{secteurItem}"/>
+                                    <p:ajax  listener="#{secteurController.getQuartierBySecteur(secteurController.selectone)}" update="quartier" />
+                                    <p:ajax  listener="#{quartierController.viderListeRue}" update="rue" />
+
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_quartier}"/>
+                                <p:selectOneMenu id="quartier" value="#{quartierController.selected}" >
+                                    <f:selectItem id="quartier3" value="#{rueController.rueVide}" itemLabel="   ----SELECT----" ></f:selectItem>                             
+                                    <f:selectItems id="quartier1" value="#{secteurController.quartiers}"
+                                                   var="quartierItem"
+                                                   itemValue="#{quartierItem}"/>
+                                    <p:ajax  listener="#{quartierController.getRueByQuartier(quartierController.selected)}" update="rue" />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_rue}" for="rue" />
+
+
+                                <p:selectOneMenu id="rue" value="#{localController.selected.rue}" >
+                                    <f:selectItem id="rue3" value="#{rueController.rueVide}" itemLabel="   ----SELECT----" ></f:selectItem>
+
+                                    <f:selectItems value="#{quartierController.rues}"
+                                                   var="rueItem"
+                                                   itemValue="#{rueItem}"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_patente}" for="patente" />
+                                <p:inputText id="patente" value="#{localController.selected.patente}" title="#{bundle.CreateLocalTitle_patente}" />
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_fax}" for="fax" />
+                                <p:inputText id="fax2" value="#{localController.selected.fax}" title="#{bundle.CreateLocalTitle_fax}" />
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_tel}" for="tel" />
+                                <p:inputText id="tel2" value="#{localController.selected.tel}" title="#{bundle.CreateLocalTitle_tel}" />
+                                <p:outputLabel value="#{bundle.CreateLocalLabel_adresse}" for="adresse" />
+                                <p:inputText id="adresse2" value="#{localController.selected.adresse}" title="#{bundle.CreateLocalTitle_adresse}" />
+
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{redevableController.create(localController)}" value="#{bundle.Save}" update="display,:RedevableCreateForm:,:growl" oncomplete="handleSubmit(args,'RedevableCreateDialog');"/>
+
+                        </h:panelGroup>
+                    </div>
+                       <h2 style="position: relative; left: 500px; bottom:300px">Parametre redevable</h2>
+                    <div id = "block" style="position: relative; left: 500px; bottom: 290px">
+                        <!--rendred pour cacher un element !!!-->
+                        <h:panelGroup id="panel">
+
+                            <p:panelGrid columns="2" rendered="#{redevableController.selected != null}">
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_personnePhysique}" for="personnePhysique" />
+                                <p:selectBooleanCheckbox id="personnePhysique" value="#{redevableController.selected.personnePhysique}">  
+                                    <p:ajax  update="panel" listener="#{redevableController.checkPersonnePhysique}" />
+
+                                </p:selectBooleanCheckbox>
+
+
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_nom}" for="nom"   rendered="#{redevableController.personnePhysique}"/>
+                                <p:inputText id="nom" value="#{redevableController.selected.nom}" title="#{bundle.CreateRedevableTitle_nom}"  rendered="#{redevableController.personnePhysique}"/>
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_prenom}" for="prenom" rendered="#{redevableController.personnePhysique}" />
+                                <p:inputText id="prenom" value="#{redevableController.selected.prenom}" title="#{bundle.CreateRedevableTitle_prenom}" rendered="#{redevableController.personnePhysique}" />
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_cin}" for="cin" rendered="#{redevableController.personnePhysique}" />
+                                <p:inputText id="cin" value="#{redevableController.selected.cin}" title="#{bundle.CreateRedevableTitle_cin}" rendered="#{redevableController.personnePhysique}" />
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_rc}" for="rc" rendered="#{redevableController.personneMorale}"/>
+                                <p:inputText id="rc" value="#{redevableController.selected.rc}" title="#{bundle.CreateRedevableTitle_rc}" rendered="#{redevableController.personneMorale}"/>
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_raisonSociale}" for="raisonSociale" rendered="#{redevableController.personneMorale}"/>
+                                <p:inputText id="raisonSociale" value="#{redevableController.selected.raisonSociale}" title="#{bundle.CreateRedevableTitle_raisonSociale}" rendered="#{redevableController.personneMorale}" />
+
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_tel}" for="tel" rendered="true"/>
+                                <p:inputText id="tel" value="#{redevableController.selected.tel}" title="#{bundle.CreateRedevableTitle_tel}" rendered="true"/>
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_email}" for="email" rendered="true"/>
+                                <p:inputText id="email" value="#{redevableController.selected.email}" title="#{bundle.CreateRedevableTitle_email}" rendered="true" />
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_adresse}" for="adresse" rendered="true"/>
+                                <p:inputText id="adresse" value="#{redevableController.selected.adresse}" title="#{bundle.CreateRedevableTitle_adresse}" rendered="true"/>
+
+                                <p:outputLabel value="#{bundle.CreateRedevableLabel_fax}" for="fax" rendered="true"/>
+                                <p:inputText id="fax" value="#{redevableController.selected.fax}" title="#{bundle.CreateRedevableTitle_fax}" rendered="true"/>
+
+                            </p:panelGrid>
+
+                        </h:panelGroup>
+
+                    </div>
+                    
+                </h:form>
+
+
+            </div>
+        </ui:define>
     </ui:composition>
+
 </html>

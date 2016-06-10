@@ -23,19 +23,27 @@ import javax.faces.convert.FacesConverter;
 @SessionScoped
 public class LocalController implements Serializable {
 
-    @EJB
-    private service.LocalFacade ejbFacade;
+    // RedevableController redevableController = new  RedevableController();
     private List<Local> items = null;
     private Local selected;
+
+    @EJB
+    private service.LocalFacade ejbFacade;
 
     public LocalController() {
     }
 
     public Local getSelected() {
+        if (selected == null) {
+            selected = new Local();
+        }
         return selected;
     }
 
     public void setSelected(Local selected) {
+        if (selected == null) {
+            selected = new Local();
+        }
         this.selected = selected;
     }
 
@@ -56,6 +64,7 @@ public class LocalController implements Serializable {
     }
 
     public void create() {
+
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LocalCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

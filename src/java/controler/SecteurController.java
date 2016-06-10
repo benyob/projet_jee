@@ -1,11 +1,13 @@
 package controler;
 
+import bean.Quartier;
 import bean.Secteur;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import service.SecteurFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,15 +20,58 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.QuartierFacade;
 
 @Named("secteurController")
 @SessionScoped
 public class SecteurController implements Serializable {
 
-    @EJB
-    private service.SecteurFacade ejbFacade;
     private List<Secteur> items = null;
     private Secteur selected;
+    private Secteur selectone;
+    QuartierController quartierController = new QuartierController();
+
+    @EJB
+    QuartierFacade quartierFacade;
+
+    @EJB
+    private service.SecteurFacade secteurFacade;
+    private List<Quartier> quartiers = new ArrayList<Quartier>();
+    
+    
+    private Secteur secteurVide = null;
+    //quartierController.getItems();
+
+    public Secteur getSecteurVide() {
+        return secteurVide;
+    }
+
+    public void setSecteurVide(Secteur secteurVide) {
+        this.secteurVide = secteurVide;
+    }
+
+    
+    public List<Quartier> getQuartierBySecteur(Secteur secteur) {
+        setQuartiers(quartierFacade.getQuartierBySecteur(secteur));
+        return quartiers;
+    }
+
+    public void viderListeRue() {
+
+    }
+
+    public List<Quartier> getQuartiers() {
+//        if (quartiers == null) {
+//            System.out.println("raha nuuuuuuul");
+//            quartiers = quartierFacade.findAll();
+//        }
+
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
+    }
 
     public SecteurController() {
     }
@@ -35,7 +80,18 @@ public class SecteurController implements Serializable {
         return selected;
     }
 
+    public Secteur getSelectone() {
+        return selectone;
+    }
+
+    public void setSelectone(Secteur selectone) {
+        this.selectone = selectone;
+    }
+
     public void setSelected(Secteur selected) {
+        if (selected == null) {
+            selected = new Secteur();
+        }
         this.selected = selected;
     }
 
@@ -46,7 +102,7 @@ public class SecteurController implements Serializable {
     }
 
     private SecteurFacade getFacade() {
-        return ejbFacade;
+        return secteurFacade;
     }
 
     public Secteur prepareCreate() {

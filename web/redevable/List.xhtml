@@ -14,84 +14,128 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="RedevableListForm">
-                <p:panel header="#{bundle.ListRedevableTitle}">
-                    <p:dataTable id="datalist" value="#{redevableController.items}" var="item"
-                                 selectionMode="single" selection="#{redevableController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <h3> Critères de recherche</h3>
+            <div id="info" style="margin-left: 150px">
+                <h:form id="CritereRecherche">
+                    <p:panelGrid columns="14">
+                        <p:outputLabel value="#{bundle.CreateRedevableLabel_personnePhysique}" for="personnePhysique" />
+                        <p:selectBooleanCheckbox id="personnePhysique" value="#{redevableController.selected.personnePhysique}">  
+                            <p:ajax  update="CritereRecherche" listener="#{redevableController.checkPersonnePhysique}" />
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        </p:selectBooleanCheckbox>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_tel}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tel}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_adresse}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.adresse}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_nom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nom}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_prenom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prenom}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_cin}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cin}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_rc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_personnePhysique}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.personnePhysique}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRedevableTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{redevableController.prepareCreate}" update=":RedevableCreateForm" oncomplete="PF('RedevableCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RedevableViewForm" oncomplete="PF('RedevableViewDialog').show()" disabled="#{empty redevableController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RedevableEditForm" oncomplete="PF('RedevableEditDialog').show()" disabled="#{empty redevableController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{redevableController.destroy}" update=":growl,datalist" disabled="#{empty redevableController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                        <p:outputLabel value="#{bundle.CreateRedevableLabel_cin}" for="cin" rendered="#{redevableController.personnePhysique}" />
+                        <p:inputText id="cin" value="#{redevableController.cin}" title="#{bundle.CreateRedevableTitle_cin}" rendered="#{redevableController.personnePhysique}" />
 
-            <ui:include src="Create.xhtml"/>
+
+                        <p:outputLabel value="#{bundle.CreateRedevableLabel_rc}" for="rc" rendered="#{redevableController.personneMorale}"/>
+                        <p:inputText id="rc" value="#{redevableController.rc}" title="#{bundle.CreateRedevableTitle_rc}" rendered="#{redevableController.personneMorale}"/>
+
+                        <p:outputLabel value="#{bundle.CreateLocalLabel_secteur}"/>
+                        <p:selectOneMenu id="secteur" value="#{redevableController.secteur}" style="width: 100px">
+                            <f:selectItem id="secteur1" value="#{redevableController.secteurVide}" itemLabel="   ----SELECT----" ></f:selectItem>
+                            <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"
+                                           var="secteurItem"
+                                           itemValue="#{secteurItem}"/>
+                            <p:ajax  listener="#{secteurController.getQuartierBySecteur(redevableController.secteur)}" update="quartier" />
+                            <p:ajax  listener="#{quartierController.viderListeRue}" update="rue" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateLocalLabel_quartier}"/>
+                        <p:selectOneMenu id="quartier" value="#{redevableController.quartier}" style="width: 100px">
+                            <f:selectItem id="quarteir1" value="#{redevableController.quartierVide}" itemLabel="   ----SELECT----" ></f:selectItem>
+                            <f:selectItems id="quartier1" value="#{secteurController.quartiers}"
+                                           var="quartierItem"
+                                           itemValue="#{quartierItem}"/>
+                            <p:ajax  listener="#{quartierController.getRueByQuartier(redevableController.quartier)}" update="rue" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateLocalLabel_rue}" for="rue" />
+                        <p:selectOneMenu id="rue" value="#{redevableController.rue}" style="width: 100px">
+                            <f:selectItem id="rue1" value="#{redevableController.rueVide}" itemLabel="   ----SELECT----" ></f:selectItem>
+                            <f:selectItems value="#{quartierController.rues}"
+                                           var="rueItem"
+                                           itemValue="#{rueItem}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton id="viewButton"  actionListener="#{redevableController.selectRedevableByCritere}" update="RedevableListForm:datalist" icon="ui-icon-search" value="" style="height: 25px" />
+
+                    </p:panelGrid>
+                </h:form>
+
+            </div>
+            <div id="tableau" style="margin-top: 50px">
+                <h:form id="RedevableListForm" rendered="true" >
+                    <p:panel header="#{bundle.ListRedevableTitle}">
+                        <p:dataTable id="datalist" value="#{redevableController.liste}" var="item"
+                                     selectionMode="single" selection="#{redevableController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     rendered="true"
+                                     style="width: 1000px; margin: auto; margin-top: 30px"
+                                     >
+
+                           
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_tel}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tel}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_raisonSociale}"/>  
+                                </f:facet>
+                                <h:outputText value="#{item.raisonSociale}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_adresse}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.adresse}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_nom}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nom}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_prenom}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prenom}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_cin}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cin}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRedevableTitle_rc}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rc}"/>
+                            </p:column>
+
+                         
+
+
+                            <f:facet name="footer">
+                                <p:commandButton id="viewButtons"   icon="ui-icon-search" value="#{bundle.View}" update=":RedevableViewForm" oncomplete="PF('RedevableViewDialog').show()" disabled="#{empty redevableController.selected}"/>
+                                <p:commandButton id="editButtons"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RedevableEditForm" oncomplete="PF('RedevableEditDialog').show()" disabled="#{empty redevableController.selected}"/>
+                                <p:commandButton id="deleteButtons" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{redevableController.destroy}" update=":growl,datalist" disabled="#{empty redevableController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
