@@ -132,7 +132,7 @@ public class Local implements Serializable {
 
     @Override
     public String toString() {
-        return "Local{" + "taxeAnnuels=" + taxeAnnuels + ", id=" + id + ", patente=" + patente + ", fax=" + fax + ", tel=" + tel + ", idDernierTaxeTrimestrielPaye=" + idDernierTaxeTrimestrielPaye + ", rue=" + rue + ", redevable=" + redevable + '}';
+        return "id=" + id ;
     }
 
     

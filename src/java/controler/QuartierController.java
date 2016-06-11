@@ -31,20 +31,20 @@ public class QuartierController implements Serializable {
     private QuartierFacade quartierFacade;
     @EJB
     private RueFacade rueFacade;
-    
+
     private Rue rue;
-    
+
     private List<Quartier> items = null;
     private Quartier selected;
     List<Quartier> quartiers = new ArrayList<>();
     List<Rue> rues = new ArrayList<>();
     private Quartier quartierVide = null;
 
-    
-    
-    public void findRueByQuartier(Quartier quartier){
-        getSelected().setRues(rueFacade.findRueByQuartier(quartier));
+    public void findRueByQuartier() {
+        
+        getSelected().setRues(rueFacade.findRueByQuartier(selected));
     }
+
     public Quartier getQuartierVide() {
         return quartierVide;
     }
@@ -54,9 +54,9 @@ public class QuartierController implements Serializable {
     }
 
     public Rue getRue() {
-       if(rue == null){
-           rue = new Rue();
-       }
+        if (rue == null) {
+            rue = new Rue();
+        }
         return rue;
     }
 
@@ -64,8 +64,6 @@ public class QuartierController implements Serializable {
         this.rue = rue;
     }
 
-    
-    
     public List<Rue> getRues() {
         //if(rues == null) setRues(rueFacade.findAll());
         return rues;
@@ -84,7 +82,7 @@ public class QuartierController implements Serializable {
 
     }
 
-    public  List<Rue>  viderListeRue(){
+    public List<Rue> viderListeRue() {
         setRues(rueFacade.viderListe());
         return rues;
     }
@@ -124,7 +122,8 @@ public class QuartierController implements Serializable {
         return selected;
     }
 
-    public void create() {
+    public void create(Secteur secteur) {
+         this.selected.setSecteur(secteur);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("QuartierCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -154,7 +153,10 @@ public class QuartierController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
+                    getFacade().create(selected);
+                    selected.getSecteur().getQuartiers().add(selected);
+                } else if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

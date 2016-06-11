@@ -9,34 +9,37 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/local/List" value="Show All Local Items"/>
-        <br />
-        <h:link outcome="/quartier/List" value="Show All Quartier Items"/>
-        <br />
-        <h:link outcome="/redevable/List" value="Show All Redevable Items"/>
-        <br />
-        <h:link outcome="/rue/List" value="Show All Rue Items"/>
-        <br />
-        <h:link outcome="/secteur/List" value="Show All Secteur Items"/>
-        <br />
-        <h:link outcome="/tauxTaxeRetardAnnuel/List" value="Show All TauxTaxeRetardAnnuel Items"/>
-        <br />
-        <h:link outcome="/tauxTaxeRetardTrimestriel/List" value="Show All TauxTaxeRetardTrimestriel Items"/>
-        <br />
-        <h:link outcome="/tauxTaxeTrimestriel/List" value="Show All TauxTaxeTrimestriel Items"/>
-        <br />
-        <h:link outcome="/taxeAnnuel/List" value="Show All TaxeAnnuel Items"/>
-        <br />
-        <h:link outcome="/taxeTrimestriel/List" value="Show All TaxeTrimestriel Items"/>
-        <br />
-        <h:link outcome="/user/List" value="Show All User Items "/>
-        <br />ss
+    <h:body >
+        <p:growl id="growl" life="3000" />
 
+        <p:panel header="Login" style="width: 360px; margin: auto">
+            <h:form>
+                <h:panelGrid id="loginPanel" columns="2">
+
+                    <h:outputText value="Username" />
+
+                    <p:inputText id="username" value="#{userController.selected.login}"  ></p:inputText>
+
+                    <p:spacer></p:spacer>
+
+                        <!--                <p:message for="username" ></p:message>-->
+
+                    <h:outputText value="Password" />
+
+                    <p:password id="password" value="#{userController.selected.password}" feedback="false"></p:password>
+
+                        <!--                <p:spacer></p:spacer>-->
+
+                        <!--                <p:message for="password"></p:message>-->
+
+                    <p:spacer></p:spacer>
+
+                    <p:commandButton  value="Login"  actionListener="#{userController.authentification()}" icon="ui-icon-check" update="growl"></p:commandButton>
+
+                </h:panelGrid>
+            </h:form>
+
+        </p:panel>
 
 
         <!--        <p:selectManyCheckbox id="custom" value="#{checkboxView.selectedConsoles2}" 
@@ -44,35 +47,39 @@
             <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
             <f:selectItem itemLabel="PS4" itemValue="PS4" />
         </p:selectManyCheckbox>
-
+       
         <div class="ui-grid ui-grid-responsive">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-6" style="border: 1px solid black">
         <p:outputLabel for="opt1" value="Xbox One" style="display:block"/>
         <p:checkbox id="opt1" for="custom" itemIndex="0" onchange="test()"/>
-    </div>
-    <div class="ui-grid-col-6" style="border: 1px solid black">
+        </div>
+        <div class="ui-grid-col-6" style="border: 1px solid black">
         <p:outputLabel for="opt2" value="PS4" style="display:block"/>
         <p:checkbox id="opt2" for="custom"  itemIndex="1" />
     </div>
-</div>
-</div>
-<script>
-function test() {
-Document.getElementsByTagName('checkbox');
-
-}
-</script>-->
-        <br />
-        <br />
+    </div>
+    </div>
+   <script>
+   function test() {
+   Document.getElementsByTagName('checkbox');
+   
+   }
+   </script>-->
 
 
+
+        <!--        <br />
+        
         <p:toolbar>
             <p:toolbarGroup align="left">
                 <p:outputLabel value="Welcome!!" />
             </p:toolbarGroup>
-        </p:toolbar>
+        </p:toolbar>-->
 
+
+        <br />
+        <h:link outcome="/user/List" value="Show All User Items"/>
         <br />
         <h:link outcome="/local/List" value="Show All Local Items"/>
         <br />
@@ -96,61 +103,6 @@ Document.getElementsByTagName('checkbox');
         <br />
         <h:link outcome="/user/List" value="Show All User Items"/>
     </h:body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

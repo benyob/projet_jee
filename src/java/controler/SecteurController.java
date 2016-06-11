@@ -1,6 +1,7 @@
 package controler;
 
 import bean.Quartier;
+import bean.Rue;
 import bean.Secteur;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -30,15 +31,38 @@ public class SecteurController implements Serializable {
     private Secteur selected;
     private Secteur selectone;
     QuartierController quartierController = new QuartierController();
+    private Rue rue;
 
     @EJB
     QuartierFacade quartierFacade;
-
     @EJB
     private service.SecteurFacade secteurFacade;
+    @EJB
+    private service.RueFacade rueFacade;
+
     private List<Quartier> quartiers = new ArrayList<Quartier>();
-    
-    
+    private Quartier quartier;
+
+    public Rue getRue() {
+        return rue;
+    }
+
+    public void setRue(Rue rue) {
+        this.rue = rue;
+    }
+
+    public void findRueByQuartier() {
+        quartier.setRues(rueFacade.getRueByQuartier(quartier));
+    }
+
+    public Quartier getQuartier() {
+        return quartier;
+    }
+
+    public void setQuartier(Quartier quartier) {
+        this.quartier = quartier;
+    }
+
     private Secteur secteurVide = null;
     //quartierController.getItems();
 
@@ -46,11 +70,16 @@ public class SecteurController implements Serializable {
         return secteurVide;
     }
 
+    public void findQuartierBySecteur() {
+        System.out.println("ha howa aaaaaa");
+        //this.selected=secteur;
+        getSelected().setQuartiers(quartierFacade.findQuartierBySecteur(selected));
+    }
+
     public void setSecteurVide(Secteur secteurVide) {
         this.secteurVide = secteurVide;
     }
 
-    
     public List<Quartier> getQuartierBySecteur(Secteur secteur) {
         setQuartiers(quartierFacade.getQuartierBySecteur(secteur));
         return quartiers;
@@ -77,6 +106,9 @@ public class SecteurController implements Serializable {
     }
 
     public Secteur getSelected() {
+        if (selected == null) {
+            selected = new Secteur();
+        }
         return selected;
     }
 

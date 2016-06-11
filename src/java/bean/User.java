@@ -12,8 +12,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long login;
+    private String login;
 
     private String password;
     private String nom;
@@ -23,26 +22,24 @@ public class User implements Serializable {
     private boolean creationRedevable = true;      //0
     private boolean consultationRedevable = true;  //1
 
-    private boolean creationTauxTaxeBoison = true;      //2
-    private boolean consultationTauxTaxeBoison = true;  //3
+    private boolean creationTauxTaxe = true;      //2
+    private boolean consultationTauxTaxe = true;  //3
 
-    private boolean creationTarificationRetardTaxeBoison = true;      //4
-    private boolean consultationTarificationRetardTaxeBoison = true;  //5
+    private boolean creationTarificationRetardTaxe = true;      //4
+    private boolean consultationTarificationRetardTaxe = true;  //5
 
     private boolean creationTaxeBoisonTrimistrielle = true;      //6
     private boolean consultationTaxeBoisonTrimistrielle = true;  //7
 
-    private boolean creationActivite = true;      //8
-    private boolean consultationActivite = true;  //9
+    private boolean creationSecteure = true;      //8
+    private boolean consultationSecteure = true;  //9
 
-    private boolean creationSecteure = true;      //10
-    private boolean consultationSecteure = true;  //11
-
-    private boolean creationUser = true;       //12
-    private boolean consultationUser = true;   //13
+    private boolean creationUser = true;       //10
+    private boolean consultationUser = true;   //11
 
 //    private boolean aviser;       //14
 //    private boolean cloturer;   //15
+    
     public String getPassword() {
         return password;
     }
@@ -83,11 +80,11 @@ public class User implements Serializable {
         this.tel = tel;
     }
 
-    public Long getLogin() {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(Long login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
@@ -132,37 +129,7 @@ public class User implements Serializable {
         this.consultationRedevable = consultationRedevable;
     }
 
-    public boolean isCreationTauxTaxeBoison() {
-        return creationTauxTaxeBoison;
-    }
 
-    public void setCreationTauxTaxeBoison(boolean creationTauxTaxeBoison) {
-        this.creationTauxTaxeBoison = creationTauxTaxeBoison;
-    }
-
-    public boolean isConsultationTauxTaxeBoison() {
-        return consultationTauxTaxeBoison;
-    }
-
-    public void setConsultationTauxTaxeBoison(boolean consultationTauxTaxeBoison) {
-        this.consultationTauxTaxeBoison = consultationTauxTaxeBoison;
-    }
-
-    public boolean isCreationTarificationRetardTaxeBoison() {
-        return creationTarificationRetardTaxeBoison;
-    }
-
-    public void setCreationTarificationRetardTaxeBoison(boolean creationTarificationRetardTaxeBoison) {
-        this.creationTarificationRetardTaxeBoison = creationTarificationRetardTaxeBoison;
-    }
-
-    public boolean isConsultationTarificationRetardTaxeBoison() {
-        return consultationTarificationRetardTaxeBoison;
-    }
-
-    public void setConsultationTarificationRetardTaxeBoison(boolean consultationTarificationRetardTaxeBoison) {
-        this.consultationTarificationRetardTaxeBoison = consultationTarificationRetardTaxeBoison;
-    }
 
     public boolean isCreationTaxeBoisonTrimistrielle() {
         return creationTaxeBoisonTrimistrielle;
@@ -180,21 +147,6 @@ public class User implements Serializable {
         this.consultationTaxeBoisonTrimistrielle = consultationTaxeBoisonTrimistrielle;
     }
 
-    public boolean isCreationActivite() {
-        return creationActivite;
-    }
-
-    public void setCreationActivite(boolean creationActivite) {
-        this.creationActivite = creationActivite;
-    }
-
-    public boolean isConsultationActivite() {
-        return consultationActivite;
-    }
-
-    public void setConsultationActivite(boolean consultationActivite) {
-        this.consultationActivite = consultationActivite;
-    }
 
     public boolean isCreationSecteure() {
         return creationSecteure;

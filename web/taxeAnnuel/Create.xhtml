@@ -17,10 +17,13 @@
 
                         <p:outputLabel value="#{bundle.CreateTaxeAnnuelLabel_local}" for="local" />
                         <p:selectOneMenu valueChangeListener="test" id="local" value="#{taxeAnnuelController.selected.local}" >
+                            <f:selectItem id="rue1" value="#{localController.localVide}" itemLabel="   ----SELECT----" ></f:selectItem>
+
                             <f:selectItems value="#{localController.itemsAvailableSelectOne}"
                                            var="localItem"
-                                           itemValue="#{localItem}"/>
-                            
+                                           itemValue="#{localItem}"
+                                           itemLabel="#{localItem.id}"/>
+
                             <p:ajax listener="#{taxeAnnuelController.getDernierTaxeTrimestriel()}" update="redevable numeroTrimestre annee" />
                         </p:selectOneMenu>
 
@@ -39,7 +42,7 @@
 
 
                         <p:outputLabel value="#{bundle.CreateTaxeTrimestrielLabel_chiffreAffaire}" for="chiffreAffaire" />
-                        <p:inputText id="chiffreAffaire" value="#{taxeAnnuelController.taxeTrimestriel.chiffreAffaire}" title="#{bundle.CreateTaxeTrimestrielTitle_chiffreAffaire}" />
+                        <p:inputText id="chiffreAffaire" value="#{taxeAnnuelController.taxeTrimestriel.chiffreAffaire}"  required="true" requiredMessage="Chiffre d'affaire est obligatoire !" title="#{bundle.CreateTaxeTrimestrielTitle_chiffreAffaire}" />
 
 
 

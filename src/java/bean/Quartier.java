@@ -51,6 +51,9 @@ public class Quartier implements Serializable {
     }
 
     public Secteur getSecteur() {
+        if(secteur == null){
+            secteur = new Secteur();
+        }
         return secteur;
     }
 

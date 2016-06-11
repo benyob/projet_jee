@@ -15,7 +15,7 @@
         <ui:define name="body">
 
             <h:form id="SecteurListForm"  class="col-lg-4">
-                <p:panel header="#{bundle.ListSecteurTitle}">
+                <p:panel header="Liste des secteurs">
                     <p:dataTable id="datalist" value="#{secteurController.items}" var="item"
                                  selectionMode="single" selection="#{secteurController.selected}"
                                  paginator="true"
@@ -25,7 +25,7 @@
 
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"  listener="#{secteurController.findQuartierBySecteur()}" update=":QuartierListForm:datalist RueListForm:datalist createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column>
@@ -40,6 +40,7 @@
                             </f:facet>
                             <h:outputText value="#{item.nom}"/>
                         </p:column>
+                     
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{secteurController.prepareCreate}" update=":SecteurCreateForm" oncomplete="PF('SecteurCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SecteurViewForm" oncomplete="PF('SecteurViewDialog').show()" disabled="#{empty secteurController.selected}"/>
@@ -50,10 +51,93 @@
                 </p:panel>
 
             </h:form>
+            <h:form id="QuartierListForm" class="col-lg-4">
+                <p:panel header="Liste des quartiers">
+                    <p:dataTable id="datalist" value="#{secteurController.selected.quartiers}" var="item"
+                                 selectionMode="single" selection="#{secteurController.quartier}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:ajax event="rowSelect" listener="#{secteurController.findRueByQuartier()}"  update=":RueListForm:datalist createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuartierTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuartierTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                       
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{quartierController.prepareCreate}" update=":QuartierCreateForm" oncomplete="PF('QuartierCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QuartierViewForm" oncomplete="PF('QuartierViewDialog').show()" disabled="#{empty quartierController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuartierEditForm" oncomplete="PF('QuartierEditDialog').show()" disabled="#{empty quartierController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{quartierController.destroy}" update=":growl,datalist" disabled="#{empty quartierController.selected}"/>
+                        </f:facet>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <h:form id="RueListForm" class="col-lg-4">
+                <p:panel header="Liste des rues" > 
+                    <p:dataTable id="datalist" value="#{secteurController.quartier.rues}" var="item"
+                                 selectionMode="single" selection="#{secteurController.rue}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+
+                                 >
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRueTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRueTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                      
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rueController.prepareCreate}" update=":RueCreateForm" oncomplete="PF('RueCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RueViewForm" oncomplete="PF('RueViewDialog').show()" disabled="#{empty rueController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RueEditForm" oncomplete="PF('RueEditDialog').show()" disabled="#{empty rueController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{rueController.destroy}" update=":growl,datalist" disabled="#{empty rueController.selected}"/>
+                        </f:facet>
+
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="/quartier/Create.xhtml"/>
+            <ui:include src="/quartier/Edit.xhtml"/>
+            <ui:include src="/quartier/View.xhtml"/>
+            <ui:include src="/rue/Create.xhtml"/>
+            <ui:include src="/rue/Edit.xhtml"/>
+            <ui:include src="/rue/View.xhtml"/>
 
 
         </ui:define>

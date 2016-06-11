@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-/**
- *
- * @author MarouaneKH
- */
+
 @Entity
 public class Secteur implements Serializable {
 
@@ -28,6 +22,17 @@ public class Secteur implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+
+    public List<Quartier> getQuartiers() {
+        if(quartiers == null){
+            quartiers = new ArrayList();
+        }
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
+    }
     
     
     

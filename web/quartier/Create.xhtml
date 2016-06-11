@@ -23,7 +23,7 @@
                                            itemValue="#{secteurItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{quartierController.create}" value="#{bundle.Save}" update="display,:QuartierListForm:datalist,:growl" oncomplete="handleSubmit(args,'QuartierCreateDialog');"/>
+                    <p:commandButton actionListener="#{quartierController.create(secteurController.selected)}" value="#{bundle.Save}" update="display,:QuartierListForm:datalist,:growl" oncomplete="handleSubmit(args,'QuartierCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="QuartierCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

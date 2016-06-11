@@ -18,14 +18,12 @@ public class SessionUtil {
 //        myCommune.getUsers().add(user);
 //        registerUser(user);
 //    }
-
     public static void registerUser(User user) {
         setAttribute("user", user);
     }
 
     public static User getConnectedUser() {
-        return new User();
-        //return (User) getAttribute("user");
+        return (User) getAttribute("user");
     }
 
 //    public static Commune getCurrentCommune() {
@@ -35,9 +33,6 @@ public class SessionUtil {
 //        }
 //        return new Commune();
 //    }
-
-   
-
     public static SessionUtil getInstance() {
         return instance;
     }
@@ -79,5 +74,10 @@ public class SessionUtil {
         if (fc != null && fc.getExternalContext() != null) {
             getSession(fc).setAttribute(cle, valeur);
         }
+    }
+
+    public static void deconnexion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        getSession(fc).removeAttribute("user");
     }
 }

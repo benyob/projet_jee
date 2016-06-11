@@ -4,6 +4,7 @@ import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import controler.util.SessionUtil;
+import java.io.IOException;
 import service.UserFacade;
 
 import java.io.Serializable;
@@ -32,12 +33,10 @@ public class UserController implements Serializable {
     public UserController() {
     }
 
-    public User getConnectedUser() {
-        User u = SessionUtil.getConnectedUser();
-        return u;
-    }
-
     public User getSelected() {
+        if (selected == null) {
+            selected = new User();
+        }
         return selected;
     }
 
@@ -49,6 +48,43 @@ public class UserController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
+    }
+
+    public User getConnectedUser() {
+        User user = SessionUtil.getConnectedUser();
+        if (user == null) {
+            return new User();
+        }
+        return user;
+    }
+
+    public void authentification() {
+        System.out.println("LOG : " + selected.getLogin());
+        System.out.println("PASSWORD : " + selected.getPassword());
+
+        User user = getFacade().authentification(selected.getLogin(), selected.getPassword());
+        if (user == null) {
+            JsfUtil.addErrorMessage("Login ou Password erroné");
+            System.out.println("User Null");
+        } else {
+            SessionUtil.registerUser(user);
+            try {
+                JsfUtil.addSuccessMessage("Bienvenu !!");
+                    SessionUtil.redirect("taxeAnnuel/List.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("User not nulll");
+        }
+    }
+
+    public void deconnexion() {
+        SessionUtil.deconnexion();
+        try {
+            SessionUtil.redirect("/projet_jee/faces/index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private UserFacade getFacade() {
@@ -146,7 +182,7 @@ public class UserController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
