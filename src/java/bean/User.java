@@ -180,6 +180,38 @@ public class User implements Serializable {
         this.consultationUser = consultationUser;
     }
 
+    public boolean isCreationTauxTaxe() {
+        return creationTauxTaxe;
+    }
+
+    public void setCreationTauxTaxe(boolean creationTauxTaxe) {
+        this.creationTauxTaxe = creationTauxTaxe;
+    }
+
+    public boolean isConsultationTauxTaxe() {
+        return consultationTauxTaxe;
+    }
+
+    public void setConsultationTauxTaxe(boolean consultationTauxTaxe) {
+        this.consultationTauxTaxe = consultationTauxTaxe;
+    }
+
+    public boolean isCreationTarificationRetardTaxe() {
+        return creationTarificationRetardTaxe;
+    }
+
+    public void setCreationTarificationRetardTaxe(boolean creationTarificationRetardTaxe) {
+        this.creationTarificationRetardTaxe = creationTarificationRetardTaxe;
+    }
+
+    public boolean isConsultationTarificationRetardTaxe() {
+        return consultationTarificationRetardTaxe;
+    }
+
+    public void setConsultationTarificationRetardTaxe(boolean consultationTarificationRetardTaxe) {
+        this.consultationTarificationRetardTaxe = consultationTarificationRetardTaxe;
+    }
+
     @Override
     public String toString() {
         return "bean.User[ login=" + login + " ]";

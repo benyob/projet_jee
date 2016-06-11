@@ -35,37 +35,37 @@
 
                         <p:menuitem  value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
 
-                        <p:submenu label="Gestion Taxes">
+                        <p:submenu label="Gestion Taxes" rendered="#{userController.getConnectedUser().creationTaxeBoisonTrimistrielle==true and userController.getConnectedUser().consultationTaxeBoisonTrimistrielle==true}">
 
                             <p:menuitem value="TaxeAnnuel" outcome="/taxeAnnuel/List.xhtml" />
                             <p:menuitem value="TaxeTrimestriel" outcome="/taxeTrimestriel/List.xhtml" />
 
                         </p:submenu>
-                        <p:submenu label="Gestion Taux Taxes">
+                        <p:submenu label="Gestion Taux Taxes"  >
 
-                            <p:menuitem value="TauxTaxeRetardAnnuel" outcome="/tauxTaxeRetardAnnuel/List.xhtml" />
-                            <p:menuitem value="TauxTaxeRetardTrimestriel" outcome="/tauxTaxeRetardTrimestriel/List.xhtml" />
-                            <p:menuitem value="TauxTaxeTrimestriel" outcome="/tauxTaxeTrimestriel/List.xhtml" />
+                            <p:menuitem value="TauxTaxeRetardAnnuel" outcome="/tauxTaxeRetardAnnuel/List.xhtml" rendered="#{userController.getConnectedUser().creationTarificationRetardTaxe==true and userController.getConnectedUser().consultationTarificationRetardTaxe==true}"/>
+                            <p:menuitem value="TauxTaxeRetardTrimestriel" outcome="/tauxTaxeRetardTrimestriel/List.xhtml" rendered="#{userController.getConnectedUser().creationTarificationRetardTaxe==true and userController.getConnectedUser().consultationTarificationRetardTaxe==true}"/>
+                            <p:menuitem value="TauxTaxeTrimestriel" outcome="/tauxTaxeTrimestriel/List.xhtml" rendered="#{userController.getConnectedUser().creationTauxTaxe==true and userController.getConnectedUser().consultationTauxTaxe==true}"/>
 
                         </p:submenu>
                         <p:submenu label="#{bundle.localeRedevable}">
 
                             <p:submenu label="#{bundle.createRecherche}">
-                                <p:menuitem value="Créer" outcome="/redevable/Create.xhtml" />          
+                                <p:menuitem value="Créer" outcome="/redevable/Create.xhtml" rendered="#{userController.getConnectedUser().creationRedevable==true}"/>          
                                 <p:menuitem value="Rechercher" outcome="/redevable/List.xhtml" />
                             </p:submenu>
                         </p:submenu>
 
                         <p:submenu label="Gestion Territoire">
                             <p:submenu label="creer">
-                                <p:menuitem value="Secteur" outcome="/secteur/List.xhtml" />
-                                <p:menuitem value="Rue" outcome="/rue/List.xhtml" />
+                                <p:menuitem value="Secteur" outcome="/secteur/List.xhtml" rendered="#{userController.getConnectedUser().creationSecteure==true}"/>
+                               
 
                             </p:submenu>
-                            <p:menuitem value="Rechercher" outcome="/secteur/List.xhtml" ></p:menuitem>
+                            <p:menuitem value="Consultation" outcome="/rue/List.xhtml" rendered="#{userController.getConnectedUser().consultationSecteure==true}" ></p:menuitem>
 
                         </p:submenu>
-                        <p:submenu label="Gestion Utilisateurs" rendered="#{userController.getConnectedUser().creationUser==false}">
+                        <p:submenu label="Gestion Utilisateurs" rendered="#{userController.getConnectedUser().creationUser==true}">
                             <p:menuitem value="Creer" outcome="/user/List.xhtml" ></p:menuitem>
                             <p:menuitem value="Consultation" outcome="/user/List.xhtml" ></p:menuitem>
                         </p:submenu>

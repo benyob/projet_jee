@@ -11,7 +11,7 @@
         <p:dialog id="UserCreateDlg" widgetVar="UserCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUserTitle}">
             <h:form id="UserCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{userController.selected != null}">
 
                         <p:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
                         <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" />
@@ -32,13 +32,42 @@
                         <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.CreateUserTitle_login}" />
                  
                   
-                        <h:outputText value="consultationActivite " />
+                        <h:outputText value="creation Redevable " />
                         <p:selectBooleanCheckbox value="#{userController.selected.creationRedevable}" />
-
-                        <h:outputText value="consultationRedevable " />
-                        <p:selectBooleanCheckbox value="#{userController.selected.consultationRedevable}">
-                           
-                        </p:selectBooleanCheckbox>
+                        
+                        <h:outputText value="consultation Redevable " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationRedevable}"></p:selectBooleanCheckbox>
+                        
+                        <h:outputText value="creation Taux Taxe " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.creationTauxTaxe}" />
+                        
+                        <h:outputText value="consultation Taux Taxe " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationTauxTaxe}"></p:selectBooleanCheckbox>
+                        
+                        <h:outputText value="creation Tarification Retard Taxe " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.creationTarificationRetardTaxe}" />
+                        
+                        <h:outputText value="consultation Tarification Retard Taxe " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationTarificationRetardTaxe}"></p:selectBooleanCheckbox>
+                        
+                        <h:outputText value="creation Taxe Boison Trimistrielle " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.creationTaxeBoisonTrimistrielle}" />
+                        
+                        <h:outputText value="consultation Taxe Boison Trimistrielle " />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationTaxeBoisonTrimistrielle}"></p:selectBooleanCheckbox>
+                       
+                        <h:outputText value="creation Secteure" />
+                        <p:selectBooleanCheckbox value="#{userController.selected.creationSecteure}" />
+                        
+                        <h:outputText value="consultationSecteure" />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationSecteure}"></p:selectBooleanCheckbox>
+                        
+                        <h:outputText value="creation Utilisatuer" />
+                        <p:selectBooleanCheckbox value="#{userController.selected.creationUser}" />
+                        
+                        <h:outputText value="consultation Utilisatuer" />
+                        <p:selectBooleanCheckbox value="#{userController.selected.consultationUser}"></p:selectBooleanCheckbox>
+                       
                      </p:panelGrid>
                     <p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UserCreateDialog.hide()"/>
