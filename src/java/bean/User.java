@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.io.Serializable;
@@ -12,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
- * @author MarouaneKH
- */
 @Entity
 public class User implements Serializable {
 
@@ -29,7 +20,29 @@ public class User implements Serializable {
     private String prenom;
     private String email;
     private String tel;
+    private boolean creationRedevable = true;      //0
+    private boolean consultationRedevable = true;  //1
 
+    private boolean creationTauxTaxeBoison = true;      //2
+    private boolean consultationTauxTaxeBoison = true;  //3
+
+    private boolean creationTarificationRetardTaxeBoison = true;      //4
+    private boolean consultationTarificationRetardTaxeBoison = true;  //5
+
+    private boolean creationTaxeBoisonTrimistrielle = true;      //6
+    private boolean consultationTaxeBoisonTrimistrielle = true;  //7
+
+    private boolean creationActivite = true;      //8
+    private boolean consultationActivite = true;  //9
+
+    private boolean creationSecteure = true;      //10
+    private boolean consultationSecteure = true;  //11
+
+    private boolean creationUser = true;       //12
+    private boolean consultationUser = true;   //13
+
+//    private boolean aviser;       //14
+//    private boolean cloturer;   //15
     public String getPassword() {
         return password;
     }
@@ -101,6 +114,118 @@ public class User implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public boolean isCreationRedevable() {
+        return creationRedevable;
+    }
+
+    public void setCreationRedevable(boolean creationRedevable) {
+        this.creationRedevable = creationRedevable;
+    }
+
+    public boolean isConsultationRedevable() {
+        return consultationRedevable;
+    }
+
+    public void setConsultationRedevable(boolean consultationRedevable) {
+        this.consultationRedevable = consultationRedevable;
+    }
+
+    public boolean isCreationTauxTaxeBoison() {
+        return creationTauxTaxeBoison;
+    }
+
+    public void setCreationTauxTaxeBoison(boolean creationTauxTaxeBoison) {
+        this.creationTauxTaxeBoison = creationTauxTaxeBoison;
+    }
+
+    public boolean isConsultationTauxTaxeBoison() {
+        return consultationTauxTaxeBoison;
+    }
+
+    public void setConsultationTauxTaxeBoison(boolean consultationTauxTaxeBoison) {
+        this.consultationTauxTaxeBoison = consultationTauxTaxeBoison;
+    }
+
+    public boolean isCreationTarificationRetardTaxeBoison() {
+        return creationTarificationRetardTaxeBoison;
+    }
+
+    public void setCreationTarificationRetardTaxeBoison(boolean creationTarificationRetardTaxeBoison) {
+        this.creationTarificationRetardTaxeBoison = creationTarificationRetardTaxeBoison;
+    }
+
+    public boolean isConsultationTarificationRetardTaxeBoison() {
+        return consultationTarificationRetardTaxeBoison;
+    }
+
+    public void setConsultationTarificationRetardTaxeBoison(boolean consultationTarificationRetardTaxeBoison) {
+        this.consultationTarificationRetardTaxeBoison = consultationTarificationRetardTaxeBoison;
+    }
+
+    public boolean isCreationTaxeBoisonTrimistrielle() {
+        return creationTaxeBoisonTrimistrielle;
+    }
+
+    public void setCreationTaxeBoisonTrimistrielle(boolean creationTaxeBoisonTrimistrielle) {
+        this.creationTaxeBoisonTrimistrielle = creationTaxeBoisonTrimistrielle;
+    }
+
+    public boolean isConsultationTaxeBoisonTrimistrielle() {
+        return consultationTaxeBoisonTrimistrielle;
+    }
+
+    public void setConsultationTaxeBoisonTrimistrielle(boolean consultationTaxeBoisonTrimistrielle) {
+        this.consultationTaxeBoisonTrimistrielle = consultationTaxeBoisonTrimistrielle;
+    }
+
+    public boolean isCreationActivite() {
+        return creationActivite;
+    }
+
+    public void setCreationActivite(boolean creationActivite) {
+        this.creationActivite = creationActivite;
+    }
+
+    public boolean isConsultationActivite() {
+        return consultationActivite;
+    }
+
+    public void setConsultationActivite(boolean consultationActivite) {
+        this.consultationActivite = consultationActivite;
+    }
+
+    public boolean isCreationSecteure() {
+        return creationSecteure;
+    }
+
+    public void setCreationSecteure(boolean creationSecteure) {
+        this.creationSecteure = creationSecteure;
+    }
+
+    public boolean isConsultationSecteure() {
+        return consultationSecteure;
+    }
+
+    public void setConsultationSecteure(boolean consultationSecteure) {
+        this.consultationSecteure = consultationSecteure;
+    }
+
+    public boolean isCreationUser() {
+        return creationUser;
+    }
+
+    public void setCreationUser(boolean creationUser) {
+        this.creationUser = creationUser;
+    }
+
+    public boolean isConsultationUser() {
+        return consultationUser;
+    }
+
+    public void setConsultationUser(boolean consultationUser) {
+        this.consultationUser = consultationUser;
     }
 
     @Override

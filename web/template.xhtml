@@ -9,7 +9,11 @@
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
+
+        <link href="#{request.contextPath}/resources/css/bootstrap.css" rel="stylesheet" />
+        <h:outputScript library="js" name="bootstrap.js"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
+
     </h:head>
 
     <h:body>
@@ -18,39 +22,49 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form id="menuForm">
+
+                <h:form id="menuForm" >
                     <p:menubar>
                         <p:menuitem  value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Local" outcome="/local/List.xhtml" />
-                            <p:menuitem value="Quartier" outcome="/quartier/List.xhtml" />
-                            <p:menuitem value="Redevable" outcome="/redevable/List.xhtml" />
-                            <p:menuitem value="Rue" outcome="/rue/List.xhtml" />
-                            <p:menuitem value="Secteur" outcome="/secteur/List.xhtml" />
+                       
+                        <p:submenu label="Gestion Taxes">
+
+                           <p:menuitem value="TaxeAnnuel" outcome="/taxeAnnuel/List.xhtml" />
+                            <p:menuitem value="TaxeTrimestriel" outcome="/taxeTrimestriel/List.xhtml" />
+                            
+                        </p:submenu>
+                        <p:submenu label="Gestion Taux Taxes">
+
                             <p:menuitem value="TauxTaxeRetardAnnuel" outcome="/tauxTaxeRetardAnnuel/List.xhtml" />
                             <p:menuitem value="TauxTaxeRetardTrimestriel" outcome="/tauxTaxeRetardTrimestriel/List.xhtml" />
                             <p:menuitem value="TauxTaxeTrimestriel" outcome="/tauxTaxeTrimestriel/List.xhtml" />
-                            <p:menuitem value="TaxeAnnuel" outcome="/taxeAnnuel/List.xhtml" />
-                            <p:menuitem value="TaxeTrimestriel" outcome="/taxeTrimestriel/List.xhtml" />
-                            <p:menuitem value="User" outcome="/user/List.xhtml" />
-                        </p:submenu>
-                        
-                        
-                           <p:submenu label="#{bundle.localeRedevable}">
                            
-                            <p:submenu label="#{bundle.createRecherche}">
-                            <p:menuitem value="Créer" outcome="/redevable/Create.xhtml" />          
-                            <p:menuitem value="Rechercher" outcome="/redevable/List.xhtml" />
-                            
-                            
-                            
-                            </p:submenu>
-                            
                         </p:submenu>
+                        <p:submenu label="#{bundle.localeRedevable}">
+
+                            <p:submenu label="#{bundle.createRecherche}">
+                                <p:menuitem value="Créer" outcome="/redevable/Create.xhtml" />          
+                                <p:menuitem value="Rechercher" outcome="/redevable/List.xhtml" />
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Gestion Territoire">
+                            <p:submenu label="creer">
+                                <p:menuitem value="Secteur" outcome="/secteur/List.xhtml" />
+                                <p:menuitem value="Quartier" outcome="/quartier/List.xhtml" />
+                                <p:menuitem value="Rue" outcome="/rue/List.xhtml" />
+
+                            </p:submenu>
+                            <p:menuitem value="Rechercher" outcome="/secteur/List.xhtml" ></p:menuitem>
+                          
+                        </p:submenu>
+                        <p:submenu label="Gestion Utilisateurs" rendered="#{userController.getConnectedUser().creationUser}">
+                            <p:menuitem value="Creer" outcome="/user/List.xhtml" ></p:menuitem>
+                            <p:menuitem value="Consultation" outcome="/user/List.xhtml" ></p:menuitem>
+                        </p:submenu>
+
                     </p:menubar>
                 </h:form>
-
-
             </p:layoutUnit>
 
             <p:layoutUnit position="south" size="60">

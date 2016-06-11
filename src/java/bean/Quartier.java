@@ -2,6 +2,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,9 @@ public class Quartier implements Serializable {
     }
 
     public List<Rue> getRues() {
+        if(rues == null){
+            rues = new ArrayList();
+        }
         return rues;
     }
 

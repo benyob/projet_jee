@@ -9,6 +9,7 @@ import bean.Quartier;
 import bean.Rue;
 import bean.Secteur;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +23,8 @@ public class RueFacade extends AbstractFacade<Rue> {
 
     @PersistenceContext(unitName = "projet_jeePU")
     private EntityManager em;
+    @EJB
+    private QuartierFacade quartierFacade;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -32,7 +35,13 @@ public class RueFacade extends AbstractFacade<Rue> {
         super(Rue.class);
     }
 
-    
+     public List<Rue> findRueByQuartier(Quartier quartier) {
+         return em.createQuery("SELECT r FROM Rue r WHERE r.quartier.id = '"+quartier.getId()+"'").getResultList();
+     }
+     public void removeQuartierWithRue(Quartier quartier){
+         em.createQuery("DELETE FROM Rue r WHERE r.quartier.id = '"+quartier.getId()+"'").executeUpdate();
+         quartierFacade.remove(quartier);
+     }
     /**
      * Retourner la liste des rues qui appartiennent à un quartier donné
      * @param selected

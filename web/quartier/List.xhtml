@@ -14,8 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="QuartierListForm">
-                <p:panel header="#{bundle.ListQuartierTitle}">
+            <h:form id="QuartierListForm" class="col-lg-4">
+                <p:panel header="Liste des quartiers">
                     <p:dataTable id="datalist" value="#{quartierController.items}" var="item"
                                  selectionMode="single" selection="#{quartierController.selected}"
                                  paginator="true"
@@ -43,7 +43,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuartierTitle_secteur}"/>
                             </f:facet>
-                            <h:outputText value="#{item.secteur}"/>
+                            <h:outputText value="#{item.secteur.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Detail"/>
+                            </f:facet>
+                            <p:commandLink value="detail" actionListener="#{quartierController.findRueByQuartier(item)}" update=":RueListForm:datalistRue"></p:commandLink>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{quartierController.prepareCreate}" update=":QuartierCreateForm" oncomplete="PF('QuartierCreateDialog').show()"/>
@@ -51,6 +57,42 @@
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuartierEditForm" oncomplete="PF('QuartierEditDialog').show()" disabled="#{empty quartierController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{quartierController.destroy}" update=":growl,datalist" disabled="#{empty quartierController.selected}"/>
                         </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <h:form id="RueListForm" class="col-lg-4">
+                <p:panel header="Liste des rues" > 
+                    <p:dataTable id="datalistRue" value="#{quartierController.selected.rues}" var="item"
+                                 selectionMode="single" selection="#{quartierController.rue}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+
+                                 >
+                       
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRueTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRueTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRueTitle_quartier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quartier.nom}"/>
+                        </p:column>
+                         
+
                     </p:dataTable>
                 </p:panel>
             </h:form>

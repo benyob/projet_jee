@@ -32,6 +32,7 @@ public class QuartierController implements Serializable {
     @EJB
     private RueFacade rueFacade;
     
+    private Rue rue;
     
     private List<Quartier> items = null;
     private Quartier selected;
@@ -39,12 +40,28 @@ public class QuartierController implements Serializable {
     List<Rue> rues = new ArrayList<>();
     private Quartier quartierVide = null;
 
+    
+    
+    public void findRueByQuartier(Quartier quartier){
+        getSelected().setRues(rueFacade.findRueByQuartier(quartier));
+    }
     public Quartier getQuartierVide() {
         return quartierVide;
     }
 
     public void setQuartierVide(Quartier quartierVide) {
         this.quartierVide = quartierVide;
+    }
+
+    public Rue getRue() {
+       if(rue == null){
+           rue = new Rue();
+       }
+        return rue;
+    }
+
+    public void setRue(Rue rue) {
+        this.rue = rue;
     }
 
     

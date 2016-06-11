@@ -14,7 +14,7 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="RueListForm">
+            <h:form id="RueListForm" class="col-lg-4">
                 <p:panel header="#{bundle.ListRueTitle}">
                     <p:dataTable id="datalist" value="#{rueController.items}" var="item"
                                  selectionMode="single" selection="#{rueController.selected}"
@@ -37,7 +37,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRueTitle_quartier}"/>
                             </f:facet>
-                            <h:outputText value="#{item.quartier}"/>
+                            <h:outputText value="#{item.quartier.nom}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

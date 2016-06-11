@@ -24,7 +24,8 @@ public class SessionUtil {
     }
 
     public static User getConnectedUser() {
-        return (User) getAttribute("user");
+        return new User();
+        //return (User) getAttribute("user");
     }
 
 //    public static Commune getCurrentCommune() {

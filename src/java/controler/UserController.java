@@ -3,6 +3,7 @@ package controler;
 import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
 import service.UserFacade;
 
 import java.io.Serializable;
@@ -29,6 +30,11 @@ public class UserController implements Serializable {
     private User selected;
 
     public UserController() {
+    }
+
+    public User getConnectedUser() {
+        User u = SessionUtil.getConnectedUser();
+        return u;
     }
 
     public User getSelected() {
