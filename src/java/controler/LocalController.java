@@ -26,11 +26,20 @@ public class LocalController implements Serializable {
     // RedevableController redevableController = new  RedevableController();
     private List<Local> items = null;
     private Local selected;
+    private Local localVide = null;
 
     @EJB
     private service.LocalFacade ejbFacade;
 
     public LocalController() {
+    }
+
+    public Local getLocalVide() {
+        return localVide;
+    }
+
+    public void setLocalVide(Local localVide) {
+        this.localVide = localVide;
     }
 
     public Local getSelected() {
@@ -94,7 +103,11 @@ public class LocalController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
+                    selected.setIdDernierTaxeTrimestrielPaye(-1);
+                    getFacade().edit(selected);
+
+                } else if (persistAction != PersistAction.UPDATE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

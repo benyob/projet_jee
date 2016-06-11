@@ -31,9 +31,7 @@ public class TaxeAnnuel implements Serializable {
     private Long id;
 
     private BigDecimal totalTaxes;
-    private BigDecimal retardPremierMois;
-    private BigDecimal retardAutresMois;
-
+  
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePresentation;
 
@@ -50,9 +48,6 @@ public class TaxeAnnuel implements Serializable {
     Redevable redevable;
 
     public Local getLocal() {
-        if (local == null) {
-            local = new Local();
-        }
         //System.out.println("getttttttttttter " + local.getPatente());
         return local;
     }
@@ -75,21 +70,6 @@ public class TaxeAnnuel implements Serializable {
 
     }
 
-    public BigDecimal getRetardPremierMois() {
-        return retardPremierMois;
-    }
-
-    public void setRetardPremierMois(BigDecimal retardPremierMois) {
-        this.retardPremierMois = retardPremierMois;
-    }
-
-    public BigDecimal getRetardAutresMois() {
-        return retardAutresMois;
-    }
-
-    public void setRetardAutresMois(BigDecimal retardAutresMois) {
-        this.retardAutresMois = retardAutresMois;
-    }
 
     public BigDecimal getTotalTaxes() {
         return totalTaxes;

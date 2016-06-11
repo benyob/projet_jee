@@ -157,61 +157,63 @@ public class TaxeAnnuelController implements Serializable {
     }
 
     public void getDernierTaxeTrimestriel() {
-        setRedevable();
+        if (selected.getLocal() != null) {
+            setRedevable();
 
-        if (selected.getLocal().getIdDernierTaxeTrimestrielPaye() == -1) {
+            if (selected.getLocal().getIdDernierTaxeTrimestrielPaye() == -1) {
 
-            dejaPaye = false;
+                dejaPaye = false;
 
-            Local local = selected.getLocal();
-            Redevable redevable = selected.getRedevable();
+                Local local = selected.getLocal();
+                Redevable redevable = selected.getRedevable();
 
-            selected = new TaxeAnnuel();
-            selected.setLocal(local);
-            selected.setChiffreAffaireTotal(new BigDecimal(0));
-            selected.setRedevable(redevable);
-            selected.setTotalTaxes(new BigDecimal(0));
-
-            taxeTrimestriel = new TaxeTrimestriel();
-            taxeTrimestriel.setRedevable(local.getRedevable());
-            taxeTrimestriel.setTaxeAnnuel(selected);
-
-            System.out.println("rah nulllllllll");
-        } else {
-            TaxeAnnuel annuel = ejbFacade.getDernierTaxeTrimestriel(selected.getLocal());
-
-            dejaPaye = true;
-            taxeTrimestriel = new TaxeTrimestriel();
-
-            if (annuel.getLocal().getIdDernierTaxeTrimestrielPaye() < 4) {
-                selected = annuel;
-
-                taxeTrimestriel.setNumeroTrimestre(annuel.getLocal().getIdDernierTaxeTrimestrielPaye() + 1);
-                taxeTrimestriel.setRedevable(selected.getLocal().getRedevable());
-                taxeTrimestriel.setTaxeAnnuel(selected);
-
-                System.out.println("AVAAAANT ++++++++++" + selected.getLocal().getIdDernierTaxeTrimestrielPaye());
-                selected.getLocal().setIdDernierTaxeTrimestrielPaye(taxeTrimestriel.getNumeroTrimestre());
-                System.out.println("APREEEES ++++++++++" + selected.getLocal().getIdDernierTaxeTrimestrielPaye());
-
-            } else if (annuel.getLocal().getIdDernierTaxeTrimestrielPaye() == 4) {
                 selected = new TaxeAnnuel();
-
-                selected.setAnnee(annuel.getAnnee() + 1);
-                selected.setRedevable(annuel.getLocal().getRedevable());
+                selected.setLocal(local);
                 selected.setChiffreAffaireTotal(new BigDecimal(0));
+                selected.setRedevable(redevable);
                 selected.setTotalTaxes(new BigDecimal(0));
 
-                selected.setLocal(annuel.getLocal());
-                selected.getLocal().setIdDernierTaxeTrimestrielPaye(1);
-
-                taxeTrimestriel.setNumeroTrimestre(1);
-                taxeTrimestriel.setRedevable(selected.getRedevable());
+                taxeTrimestriel = new TaxeTrimestriel();
+                taxeTrimestriel.setRedevable(local.getRedevable());
                 taxeTrimestriel.setTaxeAnnuel(selected);
-            }
 
-            //taxeTrimestriel.setNumeroTrimestre(annuel.getTaxeTrimestriels().get(0).getNumeroTrimestre());
-            System.out.println("machi nulllllll");
+                System.out.println("rah nulllllllll");
+            } else {
+                TaxeAnnuel annuel = ejbFacade.getDernierTaxeTrimestriel(selected.getLocal());
+
+                dejaPaye = true;
+                taxeTrimestriel = new TaxeTrimestriel();
+
+                if (annuel.getLocal().getIdDernierTaxeTrimestrielPaye() < 4) {
+                    selected = annuel;
+
+                    taxeTrimestriel.setNumeroTrimestre(annuel.getLocal().getIdDernierTaxeTrimestrielPaye() + 1);
+                    taxeTrimestriel.setRedevable(selected.getLocal().getRedevable());
+                    taxeTrimestriel.setTaxeAnnuel(selected);
+
+                    System.out.println("AVAAAANT ++++++++++" + selected.getLocal().getIdDernierTaxeTrimestrielPaye());
+                    selected.getLocal().setIdDernierTaxeTrimestrielPaye(taxeTrimestriel.getNumeroTrimestre());
+                    System.out.println("APREEEES ++++++++++" + selected.getLocal().getIdDernierTaxeTrimestrielPaye());
+
+                } else if (annuel.getLocal().getIdDernierTaxeTrimestrielPaye() == 4) {
+                    selected = new TaxeAnnuel();
+
+                    selected.setAnnee(annuel.getAnnee() + 1);
+                    selected.setRedevable(annuel.getLocal().getRedevable());
+                    selected.setChiffreAffaireTotal(new BigDecimal(0));
+                    selected.setTotalTaxes(new BigDecimal(0));
+
+                    selected.setLocal(annuel.getLocal());
+                    selected.getLocal().setIdDernierTaxeTrimestrielPaye(1);
+
+                    taxeTrimestriel.setNumeroTrimestre(1);
+                    taxeTrimestriel.setRedevable(selected.getRedevable());
+                    taxeTrimestriel.setTaxeAnnuel(selected);
+                }
+
+                //taxeTrimestriel.setNumeroTrimestre(annuel.getTaxeTrimestriels().get(0).getNumeroTrimestre());
+                System.out.println("machi nulllllll");
+            }
         }
     }
 
@@ -433,23 +435,27 @@ public class TaxeAnnuelController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
 
-                    appliqueTauxTaxe();
+                    if (selected.getLocal() != null) {
 
-                    getFacade().edit(selected);
-                    taxeTrimestriel.setTaxeAnnuel(ejbFacade.getDernierTaxeTrimestriel(selected.getLocal()));
+                        appliqueTauxTaxe();
 
-                    taxeTrimestrielFacade.create(taxeTrimestriel);
+                        getFacade().edit(selected);
+                        taxeTrimestriel.setTaxeAnnuel(ejbFacade.getDernierTaxeTrimestriel(selected.getLocal()));
 
-                    selected.getLocal().setIdDernierTaxeTrimestrielPaye(taxeTrimestriel.getNumeroTrimestre());
+                        taxeTrimestrielFacade.create(taxeTrimestriel);
 
-                    System.out.println("haaaaaaaaaaaaaaaaaaa local id :: " + selected.getLocal().getId());
+                        selected.getLocal().setIdDernierTaxeTrimestrielPaye(taxeTrimestriel.getNumeroTrimestre());
 
-                    localFacade.edit(selected.getLocal());
+                        localFacade.edit(selected.getLocal());
+                        JsfUtil.addSuccessMessage(successMessage);
+
+                    } else {
+                        JsfUtil.addErrorMessage("Veuillez selectionner un local !");
+                    }
 
                 } else {
                     getFacade().remove(selected);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
